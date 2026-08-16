@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Globe } from "lucide-react";
 import type { Project } from "@/lib/types";
@@ -32,20 +33,38 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           aria-label={`View case study: ${project.name}`}
         />
 
-        {/* Visual header — generated mark, not a fabricated screenshot */}
+        {/* Visual header — a real screenshot of the live site when one exists, otherwise a generated mark (never a fabricated screenshot) */}
         <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-border bg-bg-elevated">
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-[0.15]"
-            style={{
-              backgroundImage:
-                "linear-gradient(var(--color-border-strong) 1px, transparent 1px), linear-gradient(90deg, var(--color-border-strong) 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
-            }}
-          />
-          <span className="relative font-mono text-6xl font-medium tracking-tighter text-text-faint transition-colors duration-300 group-hover:text-accent-border">
-            {initials(project.name)}
-          </span>
+          {project.screenshot ? (
+            <>
+              <Image
+                src={project.screenshot}
+                alt={`${project.name} homepage`}
+                fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-t from-bg-elevated/90 via-bg-elevated/0 to-bg-elevated/40"
+              />
+            </>
+          ) : (
+            <>
+              <div
+                aria-hidden
+                className="absolute inset-0 opacity-[0.15]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(var(--color-border-strong) 1px, transparent 1px), linear-gradient(90deg, var(--color-border-strong) 1px, transparent 1px)",
+                  backgroundSize: "28px 28px",
+                }}
+              />
+              <span className="relative font-mono text-6xl font-medium tracking-tighter text-text-faint transition-colors duration-300 group-hover:text-accent-border">
+                {initials(project.name)}
+              </span>
+            </>
+          )}
           <span className="absolute left-4 top-4 font-mono text-xs text-text-faint">
             {String(index + 1).padStart(2, "0")}
           </span>

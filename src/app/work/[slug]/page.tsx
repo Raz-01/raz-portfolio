@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Globe } from "lucide-react";
 import { allProjectsSorted, getProject } from "@/lib/projects";
@@ -107,6 +108,21 @@ export default async function ProjectPage({
             ))}
           </Reveal>
         </div>
+
+        {project.screenshot ? (
+          <Reveal delay={0.25} className="container-page mt-14 md:mt-20">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-bg-elevated sm:aspect-[16/9]">
+              <Image
+                src={project.screenshot}
+                alt={`${project.name} homepage`}
+                fill
+                priority
+                sizes="(min-width: 768px) 1152px, 100vw"
+                className="object-cover object-top"
+              />
+            </div>
+          </Reveal>
+        ) : null}
       </header>
 
       <div className="container-page py-16 md:py-24">

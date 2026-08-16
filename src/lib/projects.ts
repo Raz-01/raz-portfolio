@@ -23,6 +23,7 @@ export const projects: Project[] = [
     github: "https://github.com/Raz-01/vidnex",
     demo: "https://vidnex-chi.vercel.app",
     demoLabel: "Marketing site",
+    screenshot: "/projects/vidnex.jpg",
     featured: true,
     priority: 1,
     caseStudy: {
@@ -66,6 +67,7 @@ export const projects: Project[] = [
     ],
     demo: "https://khk-red.vercel.app",
     demoLabel: "Live demo",
+    screenshot: "/projects/khk.jpg",
     featured: true,
     priority: 2,
     caseStudy: {
@@ -150,6 +152,7 @@ export const projects: Project[] = [
     ],
     demo: "https://sports-etcetera.vercel.app",
     demoLabel: "Live demo",
+    screenshot: "/projects/sports-etcetera.jpg",
     featured: true,
     priority: 4,
     caseStudy: {
@@ -309,6 +312,7 @@ export const projects: Project[] = [
     ],
     demo: "https://firdaos-haven.vercel.app",
     demoLabel: "Live demo",
+    screenshot: "/projects/firdaos-haven.jpg",
     featured: false,
     priority: 8,
     caseStudy: {
@@ -343,6 +347,7 @@ export const projects: Project[] = [
     stack: ["Next.js", "TypeScript", "Paystack", "Cloudinary"],
     demo: "https://ceo-damola-jewels.vercel.app",
     demoLabel: "Live demo",
+    screenshot: "/projects/ceo-damola-jewels.jpg",
     featured: false,
     priority: 9,
     caseStudy: {
