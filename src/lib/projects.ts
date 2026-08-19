@@ -197,6 +197,9 @@ export const projects: Project[] = [
       "Tron",
       "Mono",
     ],
+    demo: "https://wizzy-exchange-dashboard.vercel.app",
+    demoLabel: "Admin dashboard",
+    screenshot: "/projects/mayor-wizzys-exchange.jpg",
     featured: true,
     priority: 5,
     caseStudy: {
@@ -240,6 +243,7 @@ export const projects: Project[] = [
       "NLLB-200",
     ],
     github: "https://github.com/Raz-01/HealthLit-AI",
+    screenshot: "/projects/healthlit-ai.jpg",
     featured: true,
     priority: 6,
     caseStudy: {
