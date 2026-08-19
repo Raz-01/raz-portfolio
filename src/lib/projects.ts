@@ -109,6 +109,9 @@ export const projects: Project[] = [
       "shadcn/ui",
       "Framer Motion",
     ],
+    demo: "https://white-field.vercel.app",
+    demoLabel: "Live demo",
+    screenshot: "/projects/whitefield-hotel.jpg",
     featured: true,
     priority: 3,
     caseStudy: {
@@ -128,7 +131,7 @@ export const projects: Project[] = [
       challenges:
         "Wiring a booking flow that behaves correctly end-to-end — selection, guest details, payment, confirmation — while keeping every screen fully usable on demo/mock data before real payment credentials exist, and designing one admin data layer general enough to cover five different hotel domains without duplicating logic per section.",
       statusNote:
-        "Prototype. Architecture, guest flows, and the admin dashboard are fully built; the app currently runs in a visible demo mode rather than a live production deployment with real payments.",
+        "Prototype. Architecture, guest flows, and the admin dashboard are fully deployed and live; it runs in a visible demo mode on mock data, with real payment credentials not yet switched on.",
     },
   },
   {
