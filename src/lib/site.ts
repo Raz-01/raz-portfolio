@@ -10,7 +10,7 @@ export const site = {
   xHandle: "@Raz_defi",
   whatsapp: "https://wa.me/2347085645209",
   whatsappDisplay: "+234 708 564 5209",
-  url: "https://raz-portfolio.vercel.app",
+  url: "https://raz.is-a.dev",
 };
 
 export interface Capability {
