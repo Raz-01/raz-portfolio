@@ -3,7 +3,7 @@ import { Reveal } from "@/components/ui/reveal";
 
 const facts = [
   { label: "Based in", value: "Nigeria" },
-  { label: "Studying", value: "Computer Science" },
+  { label: "Education", value: "Computer Science, 2026" },
   { label: "Currently building", value: "vidnex" },
   { label: "Approach", value: "Brief first, then code" },
 ];
@@ -13,15 +13,15 @@ export function About() {
     <section id="about" className="scroll-mt-20 border-t border-border py-24 md:py-32">
       <div className="container-page grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-7">
-          <SectionHeading index="02" eyebrow="About" title="A developer who ships, not just studies." />
+          <SectionHeading index="02" eyebrow="About" title="A developer who ships." />
           <Reveal delay={0.1} className="max-w-xl space-y-5 text-base leading-relaxed text-text-muted sm:text-lg">
             <p>
-              I&apos;m a computer science student in Nigeria who builds things
-              to see if they work. Most of what&apos;s on this site started as
-              a written brief before it was a line of code — a token model, a
-              database schema, a product decisions log — because I&apos;d
-              rather think through a system on paper than untangle it in
-              production.
+              I&apos;m a computer science graduate from Nigeria who builds
+              things to see if they work. Most of what&apos;s on this site
+              started as a written brief before it was a line of code — a
+              token model, a database schema, a product decisions log —
+              because I&apos;d rather think through a system on paper than
+              untangle it in production.
             </p>
             <p>
               That habit is why the work spans as much ground as it does: a
@@ -33,10 +33,9 @@ export function About() {
               actually needs, then build it properly.
             </p>
             <p>
-              I&apos;m not chasing one industry. Give me a real problem — a
-              storefront that needs to feel premium, a workflow that needs
-              automating, an idea that needs a working prototype — and I can
-              build it.
+              I don&apos;t specialize in one industry. I&apos;m just as
+              comfortable making a storefront feel premium as I am automating
+              a workflow or turning a rough idea into a working prototype.
             </p>
           </Reveal>
         </div>

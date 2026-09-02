@@ -66,7 +66,7 @@ export interface TechGroup {
 export const techStack: TechGroup[] = [
   {
     label: "Languages",
-    items: ["TypeScript", "JavaScript", "Python", "Kotlin", "SQL"],
+    items: ["TypeScript", "JavaScript", "Python", "Rust", "Kotlin", "SQL"],
   },
   {
     label: "Frontend",
