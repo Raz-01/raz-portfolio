@@ -267,6 +267,51 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "greenfield-comprehensive-college",
+    name: "Greenfield Comprehensive College",
+    tagline: "A full-scope school website concept, admissions to results portal",
+    summary:
+      "A demo website for a fictional Nigerian secondary school covering admissions, a role-based portal, a public result checker, and Paystack fee payments: built and documented as a portfolio piece, not a live school's system.",
+    category: ["Web Development", "Business Application"],
+    status: "Prototype",
+    year: "2026",
+    stack: [
+      "Next.js 14",
+      "TypeScript",
+      "Tailwind CSS",
+      "Drizzle ORM",
+      "React Hook Form",
+      "Zod",
+      "Paystack",
+    ],
+    github: "https://github.com/Raz-01/greenfield-comprehensive-college",
+    demo: "https://schoolng-wheat.vercel.app",
+    demoLabel: "Live demo",
+    screenshot: "/projects/greenfield-comprehensive-college.jpg",
+    featured: true,
+    priority: 7,
+    caseStudy: {
+      idea: "Show what a complete, real-feeling school website looks like end to end: not just a homepage, but admissions, a role-based portal, a public result checker, and fee payment, all in one build.",
+      problem:
+        "Most Nigerian secondary schools either have no real web presence or a static brochure site. The tools parents and students actually use day to day (admissions, results, fees) tend to live in a portal built later, if ever.",
+      solution:
+        "A single Next.js app spanning the marketing site (about, academics, staff, gallery, news) and the operational layer parents and students actually touch: an admissions form, a role-based portal for students, parents, and staff, a public result checker, and a Paystack fee-payment flow, with a full Drizzle schema drafted for the real database this would run on in production.",
+      role: "Solo: built the marketing pages, the mock admissions and contact API routes with real server-side Zod validation, the portal login and dashboards for three roles, the result-checker lookup logic, and the Paystack test-mode payment flow.",
+      keyFeatures: [
+        "Admissions form with real client and server-side validation, generating a realistic application ID",
+        "Role-based portal (student, parent, staff) with seeded demo logins for each",
+        "Public result checker with real lookup logic shared with the portal dashboard",
+        "Paystack fee-payment flow in test mode, using Paystack's own published test card",
+        "Staff directory, class structure, gallery, news, and downloads sections",
+        "A full Drizzle Postgres schema drafted and documented, ready to connect for a real deployment",
+      ],
+      challenges:
+        "Making every flow feel real (server-side validation, realistic IDs, role-based dashboards) while being explicit that nothing writes to a live database yet, and documenting exactly what's real versus mocked so the demo can't be mistaken for a production claim.",
+      statusNote:
+        "Prototype: a complete, working demo with no live backend by design. A REBRANDING.md doc in the repo outlines exactly how it would be reskinned and connected to a real database for an actual school.",
+    },
+  },
+  {
     slug: "meliboard",
     name: "Meliboard",
     tagline: "An Android keyboard that rewrites your text with Gemini",
@@ -278,7 +323,7 @@ export const projects: Project[] = [
     stack: ["Kotlin", "Android IME", "FastAPI", "Gemini API"],
     github: "https://github.com/Raz-01/Meliboard",
     featured: false,
-    priority: 7,
+    priority: 8,
     caseStudy: {
       idea: "Put AI text-enhancement directly into the keyboard layer, so it works inside any app, not locked into one chat product.",
       problem:
@@ -321,7 +366,7 @@ export const projects: Project[] = [
     demoLabel: "Live demo",
     screenshot: "/projects/firdaos-haven.jpg",
     featured: false,
-    priority: 8,
+    priority: 9,
     caseStudy: {
       idea: "Explore a polished, editorial storefront for a fragrance brand (the tactile, scroll-triggered e-commerce feel premium scent brands use) built as a reusable template.",
       problem:
@@ -356,7 +401,7 @@ export const projects: Project[] = [
     demoLabel: "Live demo",
     screenshot: "/projects/ceo-damola-jewels.jpg",
     featured: false,
-    priority: 9,
+    priority: 10,
     caseStudy: {
       idea: "A minimal, elegant storefront for a jewelry brand where the purchase path stays short (browse, add to cart, pay) with WhatsApp as the fallback for anything a checkout form can't handle.",
       problem:
