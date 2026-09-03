@@ -19,7 +19,7 @@ export function Nav() {
   const pathname = usePathname();
   const [prevPathname, setPrevPathname] = useState(pathname);
 
-  // Close the mobile menu on navigation — adjusted during render rather
+  // Close the mobile menu on navigation, adjusted during render rather
   // than in an effect, per https://react.dev/learn/you-might-not-need-an-effect
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);

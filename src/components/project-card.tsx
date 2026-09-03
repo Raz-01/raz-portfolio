@@ -33,7 +33,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           aria-label={`View case study: ${project.name}`}
         />
 
-        {/* Visual header — a real screenshot of the live site when one exists, otherwise a generated mark (never a fabricated screenshot) */}
+        {/* Visual header: a real screenshot of the live site when one exists, otherwise a generated mark (never a fabricated screenshot) */}
         <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-border bg-bg-elevated">
           {project.screenshot ? (
             <>

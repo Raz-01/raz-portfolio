@@ -35,7 +35,7 @@ export interface Project {
   github?: string;
   demo?: string;
   demoLabel?: string;
-  /** Real screenshot of the live site, in /public/projects. Omit if no public demo exists — never fabricate one. */
+  /** Real screenshot of the live site, in /public/projects. Omit if no public demo exists; never fabricate one. */
   screenshot?: string;
   featured: boolean;
   priority: number;

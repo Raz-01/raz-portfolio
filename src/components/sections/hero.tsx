@@ -71,7 +71,7 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.7 }}
           className="mt-8 max-w-xl text-balance text-lg leading-relaxed text-text-muted"
         >
-          I work across web, software, AI, and emerging tech — turning ideas
+          I work across web, software, AI, and emerging tech, turning ideas
           into working products, from real-time 3D commerce experiences to
           automated trading bots to offline AI. Nine real builds, one
           developer, no two projects the same.

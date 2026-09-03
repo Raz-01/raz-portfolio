@@ -92,7 +92,7 @@ export default async function ProjectPage({
             ) : null}
             {!project.demo && !project.github ? (
               <span className="font-mono text-xs text-text-faint">
-                Private repository — no public link available
+                Private repository, no public link available
               </span>
             ) : null}
           </Reveal>

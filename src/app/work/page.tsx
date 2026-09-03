@@ -5,7 +5,7 @@ import { Reveal } from "@/components/ui/reveal";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Nine real builds across web development, e-commerce, AI & automation, and blockchain/Web3 — each labeled honestly by status.",
+    "Nine real builds across web development, e-commerce, AI & automation, and blockchain/Web3, each labeled honestly by status.",
 };
 
 export default function WorkPage() {
@@ -22,7 +22,7 @@ export default function WorkPage() {
             Everything I&apos;ve built, labeled honestly.
           </h1>
           <p className="mt-5 max-w-xl text-balance text-lg text-text-muted">
-            Live products, active builds, and prototypes — status shown
+            Live products, active builds, and prototypes, status shown
             plainly for each. No inflated claims, no dead links.
           </p>
         </Reveal>

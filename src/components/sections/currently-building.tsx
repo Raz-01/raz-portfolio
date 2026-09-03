@@ -30,7 +30,7 @@ export function CurrentlyBuilding() {
         <SectionHeading
           index="05"
           eyebrow="Currently building"
-          title="vidnex — a creator economy for African entertainment."
+          title="vidnex: a creator economy for African entertainment."
           description="This is where most of my time is going right now: a short-form video platform with a single in-app token connecting fans and creators, built and demoed in public milestones."
         />
 

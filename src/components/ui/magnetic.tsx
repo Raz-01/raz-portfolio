@@ -9,7 +9,7 @@ interface MagneticProps {
   strength?: number;
 }
 
-/** Wraps a CTA so it drifts gently toward the cursor on hover — subtle, disabled on touch. */
+/** Wraps a CTA so it drifts gently toward the cursor on hover: subtle, disabled on touch. */
 export function Magnetic({ children, className, strength = 0.35 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });

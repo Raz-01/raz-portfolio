@@ -14,7 +14,7 @@ export function SelectedWork() {
             index="01"
             eyebrow="Selected work"
             title="Products I've actually shipped, in progress, and prototyped."
-            description={`${allProjectsSorted.length} real builds across web, AI, blockchain, and e-commerce — led with the strongest and most complete first.`}
+            description={`${allProjectsSorted.length} real builds across web, AI, blockchain, and e-commerce, led with the strongest and most complete first.`}
           />
           <Reveal delay={0.1} className="shrink-0">
             <Button href="/work" variant="secondary" icon={<ArrowUpRight size={15} />}>

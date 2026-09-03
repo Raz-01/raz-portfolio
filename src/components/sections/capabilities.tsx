@@ -10,7 +10,7 @@ export function Capabilities() {
           index="03"
           eyebrow="Capabilities"
           title="What I actually bring to a project."
-          description="Grounded in what I've shipped — not a checklist of buzzwords."
+          description="Grounded in what I've shipped, not a checklist of buzzwords."
         />
 
         <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">

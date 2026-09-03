@@ -18,11 +18,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.role}`,
-    template: `%s — ${site.name}`,
+    default: `${site.name} · ${site.role}`,
+    template: `%s · ${site.name}`,
   },
   description:
-    "I build digital products across web, software, AI/automation, and emerging technology — real prototypes, e-commerce platforms, automation tools, and product experiments, not client testimonials.",
+    "I build digital products across web, software, AI/automation, and emerging technology: real prototypes, e-commerce platforms, automation tools, and product experiments, not client testimonials.",
   keywords: [
     "Ibrahim Abdulrahman",
     "software developer",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: site.name }],
   openGraph: {
-    title: `${site.name} — ${site.role}`,
+    title: `${site.name} · ${site.role}`,
     description:
       "I build digital products across web, software, AI/automation, and emerging technology.",
     url: site.url,
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.role}`,
+    title: `${site.name} · ${site.role}`,
     description:
       "I build digital products across web, software, AI/automation, and emerging technology.",
   },

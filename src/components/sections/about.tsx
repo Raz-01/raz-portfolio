@@ -18,8 +18,8 @@ export function About() {
             <p>
               I&apos;m a computer science graduate from Nigeria who builds
               things to see if they work. Most of what&apos;s on this site
-              started as a written brief before it was a line of code — a
-              token model, a database schema, a product decisions log —
+              started as a written brief before it was a line of code: a
+              token model, a database schema, a product decisions log,
               because I&apos;d rather think through a system on paper than
               untangle it in production.
             </p>
@@ -29,7 +29,7 @@ export function About() {
               that moves actual crypto, an offline AI that answers health
               questions in four Nigerian languages, and a creator-economy
               platform I&apos;m building right now with its own token ledger.
-              Different domains, same instinct — figure out what the product
+              Different domains, same instinct: figure out what the product
               actually needs, then build it properly.
             </p>
             <p>

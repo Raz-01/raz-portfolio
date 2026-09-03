@@ -23,19 +23,19 @@ export const capabilities: Capability[] = [
   {
     title: "Full-Stack Product Development",
     description:
-      "Taking a product from schema to shipped screen — data model, API routes, auth, payments, and the admin tooling that runs it, in one coherent codebase.",
+      "Taking a product from schema to shipped screen: data model, API routes, auth, payments, and the admin tooling that runs it, in one coherent codebase.",
     tags: ["Next.js", "TypeScript", "Postgres", "Drizzle / Prisma", "Auth"],
   },
   {
     title: "Frontend & Interaction Design",
     description:
-      "Component-driven UIs with real motion design — scroll reveals, real-time 3D previews, animated state — built to stay fast, not just look good in a demo.",
+      "Component-driven UIs with real motion design (scroll reveals, real-time 3D previews, animated state) built to stay fast, not just look good in a demo.",
     tags: ["React", "Tailwind CSS", "Framer Motion", "Three.js"],
   },
   {
     title: "AI & Automation",
     description:
-      "RAG pipelines over real document sets, local LLMs with no cloud dependency, and chat-based automation — Telegram bots that move real transactions, not toy demos.",
+      "RAG pipelines over real document sets, local LLMs with no cloud dependency, and chat-based automation: Telegram bots that move real transactions, not toy demos.",
     tags: ["LangChain", "ChromaDB", "Ollama", "Gemini API", "Grammy"],
   },
   {
@@ -47,13 +47,13 @@ export const capabilities: Capability[] = [
   {
     title: "E-commerce & Payments",
     description:
-      "Paystack-powered checkout across multiple storefronts, plus the inventory, pricing, and order logic underneath — not just a shopping cart UI.",
+      "Paystack-powered checkout across multiple storefronts, plus the inventory, pricing, and order logic underneath, not just a shopping cart UI.",
     tags: ["Paystack", "Cart & Checkout", "Inventory Logic"],
   },
   {
     title: "Product Thinking",
     description:
-      "Most of these projects started as a written brief — a PRD, a decisions log, a token model — before a line of UI existed. I plan like a product person, then build like an engineer.",
+      "Most of these projects started as a written brief (a PRD, a decisions log, a token model) before a line of UI existed. I plan like a product person, then build like an engineer.",
     tags: ["Architecture", "Documentation", "Roadmapping"],
   },
 ];

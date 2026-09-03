@@ -2,7 +2,7 @@ import type { SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement> & { size?: number };
 
-/** Brand marks — dropped from lucide-react's core set, so defined locally. */
+/** Brand marks: dropped from lucide-react's core set, so defined locally. */
 
 export function GithubIcon({ size = 16, ...props }: IconProps) {
   return (
