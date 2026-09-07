@@ -1,5 +1,5 @@
 import { ArrowUpRight, Globe } from "lucide-react";
-import { getProject } from "@/lib/projects";
+import { getProjectBySlug } from "@/lib/data/projects";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
@@ -20,8 +20,8 @@ const utilities = [
   { name: "Membership", desc: "Recurring fan-club subscription" },
 ];
 
-export function CurrentlyBuilding() {
-  const project = getProject("vidnex");
+export async function CurrentlyBuilding() {
+  const project = await getProjectBySlug("vidnex");
   if (!project) return null;
 
   return (

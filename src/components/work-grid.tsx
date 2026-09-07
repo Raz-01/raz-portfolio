@@ -1,8 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { allProjectsSorted } from "@/lib/projects";
-import type { ProjectCategory } from "@/lib/types";
+import type { Project, ProjectCategory } from "@/lib/types";
 import { ProjectCard } from "./project-card";
 
 const categories: ProjectCategory[] = [
@@ -14,15 +13,15 @@ const categories: ProjectCategory[] = [
   "Business Application",
 ];
 
-export function WorkGrid() {
+export function WorkGrid({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState<ProjectCategory | "All">("All");
 
   const filtered = useMemo(
     () =>
       active === "All"
-        ? allProjectsSorted
-        : allProjectsSorted.filter((p) => p.category.includes(active)),
-    [active]
+        ? projects
+        : projects.filter((p) => p.category.includes(active)),
+    [active, projects]
   );
 
   return (

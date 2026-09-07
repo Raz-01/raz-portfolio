@@ -73,8 +73,8 @@ export function Hero() {
         >
           I work across web, software, AI, and emerging tech, turning ideas
           into working products, from real-time 3D commerce experiences to
-          automated trading bots to offline AI. Nine real builds, one
-          developer, no two projects the same.
+          automated trading bots to offline AI. Real builds, one developer,
+          no two projects the same.
         </motion.p>
 
         <motion.div

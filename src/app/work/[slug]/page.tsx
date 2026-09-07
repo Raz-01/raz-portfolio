@@ -3,15 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Globe } from "lucide-react";
-import { allProjectsSorted, getProject } from "@/lib/projects";
+import { getAllProjects, getProjectBySlug } from "@/lib/data/projects";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
 import { GithubIcon } from "@/components/ui/icons";
 
-export function generateStaticParams() {
-  return allProjectsSorted.map((p) => ({ slug: p.slug }));
-}
+// No generateStaticParams: projects are added/edited through /admin without
+// a redeploy, so this route renders on demand and is cached (then busted via
+// revalidatePath) rather than fixed to whatever existed at build time.
 
 export async function generateMetadata({
   params,
@@ -19,7 +19,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProject(slug);
+  const project = await getProjectBySlug(slug);
   if (!project) return {};
   return {
     title: project.name,
@@ -41,12 +41,15 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getProject(slug);
+  const [project, allProjects] = await Promise.all([
+    getProjectBySlug(slug),
+    getAllProjects(),
+  ]);
   if (!project) notFound();
 
-  const idx = allProjectsSorted.findIndex((p) => p.slug === slug);
-  const prev = allProjectsSorted[(idx - 1 + allProjectsSorted.length) % allProjectsSorted.length];
-  const next = allProjectsSorted[(idx + 1) % allProjectsSorted.length];
+  const idx = allProjects.findIndex((p) => p.slug === slug);
+  const prev = allProjects[(idx - 1 + allProjects.length) % allProjects.length];
+  const next = allProjects[(idx + 1) % allProjects.length];
 
   return (
     <article>

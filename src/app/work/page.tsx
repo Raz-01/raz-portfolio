@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { WorkGrid } from "@/components/work-grid";
 import { Reveal } from "@/components/ui/reveal";
+import { getAllProjects } from "@/lib/data/projects";
 
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Nine real builds across web development, e-commerce, AI & automation, and blockchain/Web3, each labeled honestly by status.",
+    "Real builds across web development, e-commerce, AI & automation, and blockchain/Web3, each labeled honestly by status.",
 };
 
-export default function WorkPage() {
+export default async function WorkPage() {
+  const projects = await getAllProjects();
+
   return (
     <div className="pt-32 pb-24 md:pb-32">
       <div className="container-page">
@@ -29,7 +32,7 @@ export default function WorkPage() {
       </div>
 
       <div className="container-page mt-16">
-        <WorkGrid />
+        <WorkGrid projects={projects} />
       </div>
     </div>
   );
