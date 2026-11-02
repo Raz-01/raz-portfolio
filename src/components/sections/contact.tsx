@@ -1,5 +1,5 @@
 import { ArrowUpRight, Mail } from "lucide-react";
-import { site } from "@/lib/site";
+import { contact, site } from "@/lib/site";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
@@ -7,49 +7,44 @@ import { GithubIcon, LinkedinIcon, WhatsappIcon } from "@/components/ui/icons";
 
 const channels = [
   { label: "Email", value: site.email, href: `mailto:${site.email}`, icon: Mail },
-  { label: "GitHub", value: "Raz-01", href: site.github, icon: GithubIcon },
-  {
-    label: "LinkedIn",
-    value: "Ibrahim Abdulrahman",
-    href: site.linkedin,
-    icon: LinkedinIcon,
-  },
   {
     label: "WhatsApp",
     value: site.whatsappDisplay,
     href: site.whatsapp,
     icon: WhatsappIcon,
   },
+  {
+    label: "LinkedIn",
+    value: site.name,
+    href: site.linkedin,
+    icon: LinkedinIcon,
+  },
+  { label: "GitHub", value: "Raz-01", href: site.github, icon: GithubIcon },
 ];
 
 export function Contact() {
   return (
-    <section id="contact" className="scroll-mt-20 border-t border-border py-24 md:py-32">
+    <section id="contact" className="scroll-mt-20 border-t border-border py-20 md:py-28">
       <div className="container-page">
         <SectionHeading
-          index="06"
           eyebrow="Contact"
-          title="Have an idea? Let's build it."
+          title={contact.title}
+          description={contact.body}
           align="center"
+          className="mb-10 md:mb-12"
         />
 
-        <Reveal delay={0.1} className="mx-auto max-w-md text-center">
-          <p className="text-text-muted">
-            Open to freelance work and collaborations across web, AI, and
-            product builds. The fastest way to reach me is email or WhatsApp.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Button href={`mailto:${site.email}`} external icon={<ArrowUpRight size={15} />}>
-              Email me
-            </Button>
-            <Button href={site.whatsapp} external variant="secondary">
-              WhatsApp
-            </Button>
-          </div>
+        <Reveal delay={0.05} className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+          <Button href={`mailto:${site.email}`} external icon={<ArrowUpRight size={15} />}>
+            Send an email
+          </Button>
+          <Button href={site.whatsapp} external variant="secondary">
+            Message on WhatsApp
+          </Button>
         </Reveal>
 
-        <Reveal delay={0.2}>
-          <div className="mx-auto mt-16 grid max-w-3xl grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+        <Reveal delay={0.1}>
+          <div className="mx-auto mt-14 grid max-w-4xl grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {channels.map((c) => (
               <a
                 key={c.label}
@@ -59,7 +54,7 @@ export function Contact() {
                 className="group flex flex-col gap-3 bg-surface p-6 transition-colors hover:bg-surface-hover"
               >
                 <c.icon size={16} className="text-text-faint group-hover:text-accent-bright" />
-                <div>
+                <div className="min-w-0">
                   <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-text-faint">
                     {c.label}
                   </p>

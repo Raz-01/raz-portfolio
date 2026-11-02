@@ -1,102 +1,72 @@
 import type { Project } from "./types";
 
+/**
+ * Seed source for the projects table (`npm run db:seed`).
+ *
+ * The database is the live source of truth and is edited through /admin.
+ * This file mirrors the content as of the November 2026 refresh so a fresh
+ * database can be rebuilt from it. Re-running the seed overwrites any edits
+ * made in the CMS for these slugs, so only run it deliberately.
+ *
+ * Ordering is controlled by `priority` (lower shows first). The first
+ * featured project is shown as the large spotlight on the homepage.
+ */
 export const projects: Project[] = [
   {
-    slug: "vidnex",
-    name: "vidnex",
-    tagline: "African creator economy, built on a single in-app token",
+    slug: "item7go-pos",
+    name: "Item7Go POS",
+    tagline:
+      "A restaurant point-of-sale and operations system that keeps working when the internet doesn't",
     summary:
-      "The project getting most of my attention right now: a short-form video platform for African entertainment, with a fan-to-creator token economy designed milestone by milestone toward a seed-stage demo.",
-    category: ["Blockchain / Web3", "Web Development"],
+      "A point-of-sale and operations system built for Item7Go, a restaurant in Nigeria. Staff take orders, run the kitchen and take payment on a desktop app that works without internet, while the owner follows sales, products and payments from a web dashboard.",
+    category: ["Business Software"],
     status: "In Progress",
     year: "2026",
     stack: [
-      "Next.js 15",
+      "Tauri",
+      "React",
       "TypeScript",
-      "Tailwind CSS v4",
-      "Drizzle ORM",
-      "Neon Postgres",
-      "Upstash Redis",
-      "Auth.js v5",
-      "PostHog",
+      "SQLite",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "Docker",
     ],
-    github: "https://github.com/Raz-01/vidnex",
-    demo: "https://vidnex-chi.vercel.app",
-    demoLabel: "Marketing site",
-    screenshot: "/projects/vidnex.jpg",
+    screenshot: "/projects/item7go-pos.jpg",
     featured: true,
     priority: 1,
     caseStudy: {
-      idea: "A 'digital home' for African entertainment: one culturally concentrated scene to start (Afrobeats, Nigerian comedy), where short-form video is the entry point, creator-fan relationships are the reason to stay, and a single in-app token is how value moves. No asking anyone to abandon TikTok or Instagram first; creators fold their existing audience in.",
+      idea: "A complete system for running a restaurant counter: taking orders, sending them to the kitchen, taking payment, tracking stock and closing out shifts. It is built for Item7Go, a restaurant in Nigeria, and has three connected parts: a Windows desktop app the staff use, a cloud server, and a web dashboard the owner can open from anywhere.",
       problem:
-        "Creators build real audiences on platforms that give fans no meaningful way to support them directly. Meanwhile most 'token' products in this space are either pure speculation or a bolt-on gimmick with no connection to actual engagement.",
+        "Restaurants in Nigeria can't assume the internet will stay up through a busy service. A till that stops working when the connection drops can't be trusted at the counter. At the same time, an owner who isn't on site still needs to know what sold, how it was paid for, and whether the cash in the drawer adds up.",
       solution:
-        "I'm building the full token experience (earning, spending, creator balances) around four concrete utilities (Support, Access, Boost, Membership), governed by strict non-speculative rules: users can earn but never withdraw, returns diminish everywhere value is created, and ordinary social interaction (watch, like, comment, follow) is always free. For the MVP the token runs on an internal ledger sitting behind a clean interface, so a real on-chain settlement layer can replace it later without a rewrite.",
-      role: "Solo founder and builder: wrote the product brief and token model, architected the ledger (balanced double-entry transfers, idempotent writes, full audit trail), and I'm building it milestone by milestone (M0 → M4), deploying and demoing at each stage.",
+        "The desktop app records every order, payment and stock change in a database on the till itself, so the counter keeps running with no connection at all. Completed sales are queued and sent to the cloud automatically once the connection is back, and the owner sees them in the dashboard from a phone or laptop. A kitchen screen or second till in the same building can stay in sync over the restaurant's own network, without going through the internet. The system covers the whole day's operation (ordering, kitchen, payments, inventory, purchasing, staff and shifts), not just ringing up sales.",
+      role: "Sole developer: gathered requirements with the restaurant owner, designed the architecture, and built the desktop app (Tauri, React, SQLite), the cloud API (Node.js, PostgreSQL), the sync between devices and the cloud, the manager dashboard, and the automated test suite.",
       keyFeatures: [
-        "Marketing site and creator waitlist live in production",
-        "A fully modeled token ledger: every earn/spend/transfer is an auditable, idempotent database row, never a float",
-        "Four spend utilities designed end-to-end: Support (tipping), Access (unlocks), Boost (bounded discovery spend), Membership (recurring fan-club)",
-        "Human-gated, diminishing-returns earning designed to resist bot farming",
-        "Milestone-based build (M0–M4), each one deployable and demoable on its own",
+        "Fast order entry for dine-in, takeaway and delivery, with modifiers, notes, held orders and discounts",
+        "Table management: seat guests, move an order to another table, or merge two bills",
+        "Kitchen display that moves tickets from new to preparing to ready, and highlights orders that have waited too long",
+        "Cash, bank transfer, card or split payments, with change calculation and printable receipts",
+        "Recipe-based inventory: each sale deducts the ingredients it uses, with low-stock alerts, suppliers and purchase orders",
+        "Five staff roles (Owner, Manager, Cashier, Waiter, Kitchen), each seeing only the screens they need, with an audit log for refunds, voids and large discounts",
+        "Shift open and close, with expected cash calculated from actual sales so drawer shortfalls show up",
+        "Works fully offline, then syncs to the cloud and to other devices on the same network",
+        "Manager dashboard with sales, product and payment reports for any date range",
       ],
       challenges:
-        "Designing a token economy that avoids the two failure modes common in this space: speculative 'get rich' mechanics, and pay-to-win discovery. The Boost utility explicitly caps spend and splits it between creator and treasury specifically to avoid a Steemit-style vote-buying dynamic, while staying honest that cash-out is simulated, not real, for now.",
+        "Keeping money and stock figures correct over an unreliable connection. Each sale and its upload record are written in the same database transaction, and every upload carries an ID the server checks before processing, so a retried request can never create a duplicate sale. Automated tests run the real desktop code against a real server to prove it. Money is stored in whole kobo rather than decimals, so rounding errors can't build up in totals. The system has 539 automated tests across the desktop app, cloud API and dashboard.",
       statusNote:
-        "In Progress. M1 (marketing site + creator waitlist) is live; auth and the core token/feed milestones are in active development. On-chain settlement (Rust/Anchor/Solana) is an explicit, deferred design goal, not yet built.",
-    },
-  },
-  {
-    slug: "khk",
-    name: "KHK",
-    tagline: "A live 3D garment customizer for a Nigerian clothing brand",
-    summary:
-      "A mobile-first fashion e-commerce platform built around a real-time 3D customizer: customers design a top (neckline, sleeve, color, print) and watch it render before they order.",
-    category: ["E-commerce", "Web Development"],
-    status: "In Progress",
-    year: "2026",
-    stack: [
-      "Next.js 15",
-      "TypeScript",
-      "Tailwind CSS v4",
-      "Three.js",
-      "Zustand",
-      "Supabase",
-      "Prisma",
-      "Vitest",
-    ],
-    demo: "https://khk-red.vercel.app",
-    demoLabel: "Live demo",
-    screenshot: "/projects/khk.jpg",
-    featured: true,
-    priority: 2,
-    caseStudy: {
-      idea: "Give a clothing brand's customers a genuine 'build your own garment' experience, not a size dropdown, but something they can actually see take shape.",
-      problem:
-        "Custom and made-to-order clothing sites usually reduce customization to a handful of dropdowns with zero visual feedback. Customers commit to an order without ever seeing what they're actually getting.",
-      solution:
-        "I built a Custom Top Builder: a real-time 3D preview (garment mesh + print-plane rendering) driven by composable options (neck type, sleeve, fabric, color, print placement), with generated SVG path geometry, a live price breakdown that updates as choices change, and a shareable design link. It sits inside a full storefront: catalog, cart, checkout, auth, and an admin mode.",
-      role: "Solo: built the customizer's geometry engine (SVG path generation, the 3D garment mesh, pricing rules, and product-matching logic that maps a custom design back to the nearest catalog product), plus the storefront shell around it.",
-      keyFeatures: [
-        "Real-time 3D garment customizer (neckline, sleeve, color, and print) rendered live via Three.js",
-        "Generated SVG garment illustrations from the same path geometry, for fast previews",
-        "Live price breakdown that recalculates as options change",
-        "Shareable links so a customer's exact design can be sent or revisited",
-        "Full storefront on mock data/localStorage: browsing, customizing, signing in, and checking out all work without a live backend",
-      ],
-      challenges:
-        "Generating correct SVG garment paths from a small set of user choices (neckline × sleeve × fit) without hand-drawing every combination, and keeping the 3D preview, the 2D illustration, and the price calculation all in sync off one shared option state.",
-      statusNote:
-        "In Progress: Phase 1 of a planned 5-phase build. The customizer, catalog, and checkout flow work end-to-end on demo data; real payment (Paystack/Flutterwave) and production database wiring are the next phase.",
+        "In progress. The desktop app, cloud API, local-network sync and manager dashboard are built and working, and the desktop app builds as a Windows installer. Still to do: an in-app settings screen (VAT and similar settings are currently changed in the database directly), one shared staff account list between the till and the cloud, and packaging the local-network sync host into the installer.",
     },
   },
   {
     slug: "whitefield-hotel",
     name: "Whitefield Hotel",
-    tagline: "A full-service luxury hotel platform, guest flow to admin dashboard",
+    tagline:
+      "A hotel website where guests can book a room or reserve a table online",
     summary:
-      "A concept hotel platform spanning room booking, restaurant reservations, gym and pool info, events, and a complete admin dashboard, not just a brochure site, but the operational machinery behind one.",
-    category: ["Web Development", "Business Application"],
+      "A website for a full-service hotel that presents its rooms, restaurant and facilities clearly and lets guests book directly, backed by an admin dashboard for managing bookings, rooms and content.",
+    category: ["Websites", "Business Software"],
     status: "Prototype",
     year: "2026",
     stack: [
@@ -113,166 +83,35 @@ export const projects: Project[] = [
     demoLabel: "Live demo",
     screenshot: "/projects/whitefield-hotel.jpg",
     featured: true,
-    priority: 3,
+    priority: 2,
     caseStudy: {
-      idea: "Explore what a full-service luxury hotel's digital operations could actually look like as one system: guest-facing booking alongside the admin tools that run it, not two disconnected products.",
+      idea: "A hotel's website is often the first impression a guest gets. This project explores what a complete online presence for a full-service hotel looks like: a site that presents the rooms, restaurant, gym, pool and events well, and lets guests act on what they see by booking directly instead of calling.",
       problem:
-        "Most hotel websites are static brochures. The operational reality (room availability, restaurant reservations, gym and pool scheduling, admin oversight) usually lives in separate, disconnected systems (or a phone call).",
+        "Many hotel websites are static brochures. Guests can look at photos, but to check availability, book a room or reserve a table they still have to call or send a message, and the hotel ends up handling those requests across phone calls, chats and paper.",
       solution:
-        "A single Next.js application covering the guest side (rooms, restaurant, gym, pool, events, gallery, booking flow) and the admin side (bookings, rooms, gym/pool/restaurant management, analytics, CMS, role-gated users), backed by Supabase for data and auth, Paystack for payment, and Resend for transactional email.",
-      role: "Solo: designed the Supabase schema (rooms, bookings, admin roles), built the guest booking flow (room selection → guest details → payment → confirmation) and the restaurant reservation flow, and built the admin dashboard (analytics charts, CMS editing, booking/room/user management).",
+        "One website that covers both sides. Guests get pages for rooms, the restaurant, gym, pool, events and a gallery, plus a step-by-step booking flow and restaurant reservations with email confirmation. Hotel staff get an admin dashboard for bookings, rooms, gym, pool and restaurant management, booking and revenue charts, content editing, and role-based access. Supabase handles data and sign-in, Paystack handles payment, and Resend sends the confirmation emails.",
+      role: "Solo: designed the database (rooms, bookings, admin roles), built the guest booking flow (room selection, guest details, payment, confirmation) and restaurant reservations, and built the admin dashboard (analytics charts, content editing, booking, room and user management).",
       keyFeatures: [
-        "Room browsing and booking flow with guest details and payment",
-        "Restaurant table reservation with confirmation emails",
-        "Gym, pool, and events information pages",
-        "Admin dashboard: bookings, rooms, gym/pool/restaurant management, CSV export, revenue and booking analytics charts",
-        "Role-gated admin access, and SEO groundwork (sitemap, robots, structured data, generated OG images)",
+        "Room browsing and a guided booking flow with guest details and payment",
+        "Restaurant table reservations with confirmation emails",
+        "Dedicated pages for the restaurant, gym, pool, events and gallery",
+        "Admin dashboard: bookings, rooms, gym, pool and restaurant management, CSV export, and revenue and booking charts",
+        "Role-based staff access, plus search engine groundwork (sitemap, structured data, generated social preview images)",
       ],
       challenges:
-        "Wiring a booking flow that behaves correctly end-to-end (selection, guest details, payment, confirmation) while keeping every screen fully usable on demo/mock data before real payment credentials exist, and designing one admin data layer general enough to cover five different hotel domains without duplicating logic per section.",
+        "Making the booking flow behave correctly from start to finish (selection, guest details, payment, confirmation) while keeping every screen usable on sample data before real payment credentials exist, and designing one admin data layer that covers five different parts of the hotel without repeating the same logic for each.",
       statusNote:
-        "Prototype. Architecture, guest flows, and the admin dashboard are fully deployed and live; it runs in a visible demo mode on mock data, with real payment credentials not yet switched on.",
-    },
-  },
-  {
-    slug: "sports-etcetera",
-    name: "Sports Etcetera",
-    tagline: "An e-commerce concept for a Lagos sports retailer",
-    summary:
-      "A documented, properly-architected e-commerce build (product catalog, cart, and Paystack checkout) planned like a real product with a PRD, schema docs, and a roadmap before a line of UI was written.",
-    category: ["E-commerce"],
-    status: "Prototype",
-    year: "2026",
-    stack: [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "shadcn/ui",
-      "Supabase Postgres",
-      "Drizzle ORM",
-      "Paystack",
-      "Playwright",
-    ],
-    demo: "https://sports-etcetera.vercel.app",
-    demoLabel: "Live demo",
-    screenshot: "/projects/sports-etcetera.jpg",
-    featured: true,
-    priority: 4,
-    caseStudy: {
-      idea: "Give a local sports retail business a proper online storefront: browse by category and brand, manage inventory and shipping zones, and check out with a real Nigerian payment provider.",
-      problem:
-        "Small retail businesses often end up with either no online presence or a generic no-code storefront that doesn't fit their actual catalog (sizes, brands, per-variant stock) or local payment and shipping needs.",
-      solution:
-        "A Next.js storefront over a documented product/pricing/inventory/order domain (seeded categories, brands, and shipping zones, Paystack for payment), written up like a real product (PRD, schema docs, component hierarchy, roadmap) before being built.",
-      role: "Solo: designed the data model and service layer (pricing, inventory, orders, audit) and built the storefront and checkout UI on top of it.",
-      keyFeatures: [
-        "Product catalog with categories, brands, and shipping zones",
-        "Cart and Paystack checkout",
-        "Service layer separating pricing, inventory, orders, and audit logic from UI",
-        "Seed scripts for realistic demo data",
-        "Unit tests (Vitest) and end-to-end tests (Playwright)",
-      ],
-      challenges:
-        "Modeling inventory and shipping-zone pricing generically enough to support a real multi-category retailer, while keeping business logic cleanly separated from UI so it stays testable as the catalog grows.",
-      statusNote:
-        "Prototype: a working, documented storefront and checkout flow. Not confirmed as a live commercial deployment for the business it was designed around.",
-    },
-  },
-  {
-    slug: "mayor-wizzys-exchange",
-    name: "Mayor Wizzy's Exchange",
-    tagline: "A Telegram OTC crypto trading bot with an admin dashboard",
-    summary:
-      "A Telegram bot that walks customers through buying and selling USDT, BTC, and ETH, paired with an admin dashboard for rates, transactions, and payout automation, built as a reusable platform deployed per client.",
-    category: ["Blockchain / Web3", "AI & Automation"],
-    status: "In Progress",
-    year: "2025–2026",
-    stack: [
-      "Grammy (Telegram)",
-      "Fastify",
-      "Next.js",
-      "PostgreSQL",
-      "Drizzle ORM",
-      "Redis",
-      "Tron",
-      "Mono",
-    ],
-    demo: "https://wizzy-exchange-dashboard.vercel.app",
-    demoLabel: "Admin dashboard",
-    screenshot: "/projects/mayor-wizzys-exchange.jpg",
-    featured: true,
-    priority: 5,
-    caseStudy: {
-      idea: "Automate the manual, chat-based crypto OTC trading flow (customer messages an admin, negotiates a rate, sends payment, waits for a manual transfer) into a structured, guided Telegram bot.",
-      problem:
-        "Manual OTC crypto trading over chat is slow and error-prone on both sides: rates go stale mid-conversation, payment proof gets lost in DMs, and payouts are tracked by memory.",
-      solution:
-        "A Grammy-based Telegram bot with guided buy/sell conversations and admin-set exchange rates, backed by a Fastify API and a Postgres/Drizzle data layer, a Next.js admin dashboard for rates, transactions, and automation rules, and direct integrations with Mono (Nigerian bank account verification) and Tron (on-chain crypto transfers) to move toward automated payouts and deposit verification.",
-      role: "Solo: built the bot conversations and admin notification flow, the shared database package, the admin dashboard (rates, transactions, automation history, analytics), and the Mono/Tron service integrations.",
-      keyFeatures: [
-        "Guided Telegram buy/sell conversations with live rate-setting",
-        "Admin notifications and inline transaction-action keyboards inside Telegram",
-        "Admin dashboard for rates, transactions, and automation history: every auto-send/auto-verify attempt logged, success or failure",
-        "Mono integration for bank account verification",
-        "Tron integration for on-chain crypto movement",
-        "Multi-client architecture: a second deployment reuses the same platform for a different client by swapping environment variables, no code changes",
-      ],
-      challenges:
-        "Coordinating shared state across three surfaces (the Telegram bot, the REST API, and the admin dashboard) through one database package without tight coupling, and building automation rules that are transparent about why an auto-send did or didn't happen, rather than a black box.",
-      statusNote:
-        "In Progress / Experimental. The bot, dashboard, and blockchain/banking integrations are functionally built and deployed per client; some announced capabilities are still evolving, so I'm labeling this honestly as in progress rather than finished.",
-    },
-  },
-  {
-    slug: "healthlit-ai",
-    name: "HealthLit AI",
-    tagline: "An offline, multilingual AI health-literacy assistant",
-    summary:
-      "My final-year project: a fully offline, multimodal AI application that answers health questions in plain language, grounded in WHO and Nigerian Ministry of Health documents, in English and four Nigerian languages.",
-    category: ["AI & Automation"],
-    status: "Prototype",
-    year: "2026",
-    stack: [
-      "Python",
-      "Django REST Framework",
-      "React + Vite",
-      "LangChain",
-      "ChromaDB",
-      "Ollama (Phi-3, LLaVA)",
-      "Whisper",
-      "NLLB-200",
-    ],
-    github: "https://github.com/Raz-01/HealthLit-AI",
-    screenshot: "/projects/healthlit-ai.jpg",
-    featured: true,
-    priority: 6,
-    caseStudy: {
-      idea: "Make trustworthy health information genuinely accessible in low-resource settings: no internet dependency, no English-only assumption, no opaque AI answers.",
-      problem:
-        "Health information online is usually dense clinical English, assumes constant connectivity, and isn't available in Yoruba, Hausa, Igbo, or Nigerian Pidgin, a real barrier in low-resource Nigerian settings.",
-      solution:
-        "A locally-run retrieval-augmented generation pipeline over a curated knowledge base of 12 WHO/FMOH health topics, answering text, voice, or image questions with a small local LLM, translated into the user's chosen language, with patient data never leaving the device.",
-      role: "Solo: built the RAG pipeline (LangChain + ChromaDB retrieval over the WHO/FMOH knowledge base), the Django REST backend, the React frontend, and wired in speech, vision, and translation as input/output modalities around the core model.",
-      keyFeatures: [
-        "Accepts health questions via text, voice, or image",
-        "Answers grounded in a curated 12-topic WHO/FMOH knowledge base: malaria, diabetes, hypertension, maternal health, and more",
-        "Responds in English, Yoruba, Hausa, Igbo, and Nigerian Pidgin",
-        "Runs entirely offline on a standard laptop, no internet required",
-        "Patient data never leaves the device",
-      ],
-      challenges:
-        "Getting a small local model (3.8B parameters, no cloud fallback) to answer reliably and stay grounded in the source documents instead of hallucinating, and chaining four separate models (language, translation, speech, vision) into one coherent offline pipeline without a GPU-backed server.",
-      statusNote:
-        "Prototype: a working application built and presented as a university seminar / final-year project (CSC 431, University of Ilorin, 2026). Not deployed as a public product.",
+        "Prototype. A concept project, not built for a specific hotel. The guest pages and admin dashboard are deployed and work end to end in a visible demo mode on sample data; real payments are not switched on.",
     },
   },
   {
     slug: "greenfield-comprehensive-college",
     name: "Greenfield Comprehensive College",
-    tagline: "A full-scope school website concept, admissions to results portal",
+    tagline:
+      "A school website with admissions, a parent and student portal, result checking and fee payment",
     summary:
-      "A demo website for a fictional Nigerian secondary school covering admissions, a role-based portal, a public result checker, and Paystack fee payments: built and documented as a portfolio piece, not a live school's system.",
-    category: ["Web Development", "Business Application"],
+      "A complete website for a Nigerian secondary school: online admissions, a portal for students, parents and staff, a result checker and school fee payment. Built as a working demo for a fictional school and designed to be rebranded for a real one.",
+    category: ["Education", "Websites"],
     status: "Prototype",
     year: "2026",
     stack: [
@@ -289,66 +128,429 @@ export const projects: Project[] = [
     demoLabel: "Live demo",
     screenshot: "/projects/greenfield-comprehensive-college.jpg",
     featured: true,
-    priority: 7,
+    priority: 3,
     caseStudy: {
-      idea: "Show what a complete, real-feeling school website looks like end to end: not just a homepage, but admissions, a role-based portal, a public result checker, and fee payment, all in one build.",
+      idea: "Show what a school website can do beyond a homepage: take admission applications, let parents check results and pay fees, and give students, parents and staff their own portal, all in one place.",
       problem:
-        "Most Nigerian secondary schools either have no real web presence or a static brochure site. The tools parents and students actually use day to day (admissions, results, fees) tend to live in a portal built later, if ever.",
+        "Many Nigerian secondary schools have no real website, or only a static page with contact details. The things parents and students deal with every term (admissions, results, fees) are still handled on paper or in person.",
       solution:
-        "A single Next.js app spanning the marketing site (about, academics, staff, gallery, news) and the operational layer parents and students actually touch: an admissions form, a role-based portal for students, parents, and staff, a public result checker, and a Paystack fee-payment flow, with a full Drizzle schema drafted for the real database this would run on in production.",
-      role: "Solo: built the marketing pages, the mock admissions and contact API routes with real server-side Zod validation, the portal login and dashboards for three roles, the result-checker lookup logic, and the Paystack test-mode payment flow.",
+        "One website covering both the public side (about, academics, staff, gallery, news, downloads) and the parts parents and students use day to day: an admissions form, a portal with separate views for students, parents and staff, a public result checker, and fee payment through Paystack. A full database design is included, ready for a real deployment.",
+      role: "Solo: built the public pages, the admissions and contact forms with server-side validation, the portal login and dashboards for three roles, the result-checker logic, and the Paystack payment flow in test mode.",
       keyFeatures: [
-        "Admissions form with real client and server-side validation, generating a realistic application ID",
-        "Role-based portal (student, parent, staff) with seeded demo logins for each",
-        "Public result checker with real lookup logic shared with the portal dashboard",
-        "Paystack fee-payment flow in test mode, using Paystack's own published test card",
-        "Staff directory, class structure, gallery, news, and downloads sections",
-        "A full Drizzle Postgres schema drafted and documented, ready to connect for a real deployment",
+        "Admissions form with validation on both the browser and server, generating an application ID",
+        "Portal with separate dashboards for students, parents and staff, with demo logins for each",
+        "Public result checker using the same lookup logic as the portal",
+        "School fee payment through Paystack, in test mode",
+        "Staff directory, class structure, gallery, news and downloads sections",
+        "A complete PostgreSQL database design, documented and ready to connect",
       ],
       challenges:
-        "Making every flow feel real (server-side validation, realistic IDs, role-based dashboards) while being explicit that nothing writes to a live database yet, and documenting exactly what's real versus mocked so the demo can't be mistaken for a production claim.",
+        "Making every flow feel complete (server-side validation, realistic application IDs, role-based dashboards) while nothing is saved to a live database yet, and documenting clearly what is working versus simulated so the demo is never mistaken for a production system.",
       statusNote:
-        "Prototype: a complete, working demo with no live backend by design. A REBRANDING.md doc in the repo outlines exactly how it would be reskinned and connected to a real database for an actual school.",
+        "Prototype. A working demo for a fictional school, with no live database by design. The repository includes a guide for rebranding it and connecting it to a real database for an actual school.",
+    },
+  },
+  {
+    slug: "ilorin-bulk-mart",
+    name: "Ilorin Bulk Mart",
+    tagline:
+      "A wholesale foodstuff store with bulk pricing, staff roles and accurate stock records",
+    summary:
+      "An online store for a bulk foodstuff business, with prices that drop at quantity thresholds, quote requests for large orders, separate admin tools for owners, sales staff and warehouse staff, and stock records that always add up.",
+    category: ["E-commerce", "Business Software"],
+    status: "Prototype",
+    year: "2026",
+    stack: [
+      "Next.js 16",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Tailwind CSS v4",
+      "Auth.js v5",
+      "Zustand",
+      "Paystack",
+    ],
+    github: "https://github.com/Raz-01/ecom-storefront",
+    demo: "https://ecom-storefront-kappa.vercel.app",
+    demoLabel: "Live demo",
+    screenshot: "/projects/ecom-storefront.jpg",
+    featured: true,
+    priority: 4,
+    caseStudy: {
+      idea: "Build a store that fits how a wholesale food business actually works: tiered bulk pricing, accurate inventory, and staff roles, rather than a generic shop template with a 'bulk' label on it.",
+      problem:
+        "Bulk and wholesale sellers need things a standard online store template doesn't handle well: unit prices that change at quantity thresholds, stock counts that stay correct across sales, returns and manual corrections, and staff roles (owner, sales, warehouse) that shouldn't all see or do the same things.",
+      solution:
+        "A storefront with tiered bulk pricing and a request-a-quote option above the largest tier, Paystack payment with a built-in demo payment fallback, and a role-based admin for owners, sales staff and warehouse staff covering products, orders, quotes and staff. Underneath, money is stored as whole numbers to avoid rounding errors, a single order status drives both the payment and delivery views so they can't disagree, and every stock change is recorded as its own entry so stock levels can always be traced back.",
+      role: "Solo: designed the data model (currency handling, order states, inventory ledger) and built the storefront, checkout, quote-request flow, and the role-based admin dashboard with analytics.",
+      keyFeatures: [
+        "Tiered bulk pricing, with a request-a-quote option for orders above the largest tier",
+        "Paystack checkout, with an in-app demo payment simulator when no live key is configured",
+        "Role-based admin: owner, sales staff and warehouse staff each see different tools",
+        "Every stock change recorded as its own entry, so stock history is always explainable",
+        "One order status driving separate payment and fulfilment views that can never drift apart",
+        "Delivery-fee preview by state, pickup or nationwide delivery, and a WhatsApp handoff after checkout and quote requests",
+      ],
+      challenges:
+        "Modelling money and inventory so reports are always correct and can be rebuilt from history: whole-number currency instead of decimals, and a record of every stock movement instead of a single number that gets overwritten.",
+      statusNote:
+        "Prototype. Phase 1 of a documented three-phase plan. Ilorin Bulk Mart is a placeholder business name, not a client engagement.",
+    },
+  },
+  {
+    slug: "velora-motors",
+    name: "Velora Motors",
+    tagline:
+      "A car dealership platform with a budget finder, financing calculator and sales CRM",
+    summary:
+      "A car dealership website that helps buyers find a car that fits their budget, estimate monthly payments and compare vehicles, with an admin dashboard for inventory, leads and sales analytics. Built around a placeholder brand that can be rebranded from one settings file.",
+    category: ["Websites", "Business Software"],
+    status: "Prototype",
+    year: "2026",
+    stack: [
+      "Next.js 16",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Tailwind CSS v4",
+      "shadcn/ui",
+      "Auth.js",
+      "Recharts",
+    ],
+    demo: "https://velora-motors-zeta.vercel.app",
+    demoLabel: "Live demo",
+    screenshot: "/projects/velora-motors.jpg",
+    featured: true,
+    priority: 5,
+    caseStudy: {
+      idea: "Build a car dealership platform that does more than list cars: help buyers work out which car fits their budget and situation, then connect them to a salesperson on WhatsApp when they're ready.",
+      problem:
+        "Dealership websites are usually a searchable list of cars and nothing else. Buyers are left to guess at financing, compare vehicles by hand, and call in for basic questions the website could have answered.",
+      solution:
+        "Searchable, filterable inventory with shareable links; a budget finder that clearly flags cars above a buyer's budget instead of hiding them; a financing calculator for monthly payments; a 'help me find a car' wizard; side-by-side comparison of up to four vehicles; and a WhatsApp-first contact flow with prefilled messages. Behind it is an admin dashboard for inventory, a lead pipeline, and analytics.",
+      role: "Solo: built the inventory and search, the budget-matching and financing logic, the recommendation wizard, vehicle comparison, and the admin CRM and analytics dashboard.",
+      keyFeatures: [
+        "Inventory search, filtering and sorting with shareable, bookmarkable results",
+        "Budget finder that matches cars to a stated budget and clearly labels anything over it",
+        "Financing calculator for an estimated monthly payment",
+        "Rule-based recommendation wizard, built so a smarter engine can replace it later",
+        "Side-by-side comparison of up to four vehicles",
+        "Admin dashboard: inventory management, a lead pipeline and analytics charts",
+        "WhatsApp contact with prefilled messages, plus printable vehicle sheets and QR codes for the showroom",
+      ],
+      challenges:
+        "Writing the recommendation and budget-matching logic as separate, testable pieces rather than tying them to the screens, and making the dealership's name, contact details, currency and opening hours change from one settings file instead of being scattered through the code.",
+      statusNote:
+        "Prototype. A fully working demo dealership with around 120 sample vehicles. Velora Motors is a placeholder brand, not a real dealership client.",
+    },
+  },
+  {
+    slug: "solar-nigeria",
+    name: "Solar Nigeria",
+    tagline:
+      "A solar company website with a calculator that turns a list of appliances into a quote",
+    summary:
+      "A website for a solar installation company built around an interactive calculator: customers list their appliances and how long they need backup power, and get a recommended system size and price estimate before they ever make a call.",
+    category: ["Websites", "Business Software"],
+    status: "Prototype",
+    year: "2026",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "NextAuth.js",
+      "Zod",
+      "Vitest",
+    ],
+    demo: "https://solar-nigeria-sigma.vercel.app",
+    demoLabel: "Live demo",
+    screenshot: "/projects/solar-nigeria.jpg",
+    featured: true,
+    priority: 6,
+    caseStudy: {
+      idea: "Replace the 'contact us for a quote' dead end on most solar company websites with a calculator: tell it which appliances you need to run and for how long, and get a preliminary system size and price.",
+      problem:
+        "Solar is a considered purchase, and most people don't know enough to ask for a meaningful quote. Websites that only say 'contact us' lose visitors who wanted a number first, not a phone call.",
+      solution:
+        "An interactive calculator that turns a customer's appliance list and backup needs into a recommended inverter, battery and panel size with a price range. The calculation logic is written independently of the website, so the same code gives the live preview in the browser and the final figure checked on the server before a quote is saved.",
+      role: "Solo: designed and built the calculator and its tests, the admin dashboard for managing components and pricing, and the quote-request flow.",
+      keyFeatures: [
+        "Interactive calculator: appliances and backup time in, recommended system and price range out",
+        "Calculation logic kept separate from the website and covered by its own tests",
+        "Each quote request saves exactly what was calculated at the time, so later price changes can't alter past quotes",
+        "Admin dashboard for managing components, pricing and content",
+      ],
+      challenges:
+        "Keeping the calculator accurate and reusable by writing it as plain, framework-free code, and making sure at the database level that a saved quote can never be changed by a later price update.",
+      statusNote:
+        "Prototype. Marked as a demo on its own homepage. Solar Nigeria is a placeholder company; this explores what a quote calculator for a real installer would look like.",
+    },
+  },
+  {
+    slug: "mayor-wizzys-exchange",
+    name: "Mayor Wizzy's Exchange",
+    tagline:
+      "A Telegram bot that automates crypto buy and sell orders, with an admin dashboard",
+    summary:
+      "A Telegram bot that guides customers through buying and selling USDT, BTC and ETH, with an admin dashboard for rates, transactions and payout automation. Built as one platform that can be deployed separately for each client.",
+    category: ["AI & Automation", "Blockchain / Web3"],
+    status: "In Progress",
+    year: "2025–2026",
+    stack: [
+      "Grammy (Telegram)",
+      "Fastify",
+      "Next.js",
+      "PostgreSQL",
+      "Drizzle ORM",
+      "Redis",
+      "Tron",
+      "Mono",
+    ],
+    demo: "https://wizzy-exchange-dashboard.vercel.app",
+    demoLabel: "Admin dashboard",
+    screenshot: "/projects/mayor-wizzys-exchange.jpg",
+    featured: true,
+    priority: 7,
+    caseStudy: {
+      idea: "Turn a manual, chat-based crypto trading process (customer messages an admin, agrees a rate, sends payment, waits for a transfer) into a guided Telegram bot.",
+      problem:
+        "Handling crypto trades by chat is slow and error-prone on both sides: rates go out of date mid-conversation, payment proof gets lost in messages, and payouts are tracked from memory.",
+      solution:
+        "A Telegram bot with guided buy and sell conversations at admin-set rates, backed by an API and database, an admin dashboard for rates, transactions and automation rules, and integrations with Mono (Nigerian bank account verification) and Tron (on-chain transfers) to automate payouts and deposit checks.",
+      role: "Solo: built the bot conversations and admin notifications, the shared database package, the admin dashboard (rates, transactions, automation history, analytics), and the Mono and Tron integrations.",
+      keyFeatures: [
+        "Guided Telegram buy and sell conversations with live rates",
+        "Admin notifications and one-tap transaction actions inside Telegram",
+        "Admin dashboard for rates, transactions and automation history, with every automatic send or verification logged",
+        "Mono integration for bank account verification",
+        "Tron integration for on-chain transfers",
+        "Multi-client setup: a second deployment serves a different client by changing configuration, with no code changes",
+      ],
+      challenges:
+        "Keeping the Telegram bot, the API and the admin dashboard in step through one shared database without tying them too closely together, and making automation rules transparent about why an automatic payout did or didn't happen.",
+      statusNote:
+        "In progress. The bot, dashboard and banking and blockchain integrations are built and deployed for each client; some features are still being refined.",
+    },
+  },
+  {
+    slug: "healthlit-ai",
+    name: "HealthLit AI",
+    tagline:
+      "An offline AI assistant that answers health questions in English and four Nigerian languages",
+    summary:
+      "My final-year project: an AI application that answers health questions in plain language, based on WHO and Nigerian Ministry of Health documents, in English, Yoruba, Hausa, Igbo and Pidgin. It runs entirely on a laptop with no internet.",
+    category: ["AI & Automation"],
+    status: "Prototype",
+    year: "2026",
+    stack: [
+      "Python",
+      "Django REST Framework",
+      "React + Vite",
+      "LangChain",
+      "ChromaDB",
+      "Ollama (Phi-3, LLaVA)",
+      "Whisper",
+      "NLLB-200",
+    ],
+    github: "https://github.com/Raz-01/HealthLit-AI",
+    screenshot: "/projects/healthlit-ai.jpg",
+    featured: true,
+    priority: 8,
+    caseStudy: {
+      idea: "Make trustworthy health information accessible in low-resource settings: no internet required, not limited to English, and answers grounded in recognised health sources.",
+      problem:
+        "Health information online is usually written in dense clinical English, assumes a constant connection, and is rarely available in Yoruba, Hausa, Igbo or Pidgin. In many Nigerian communities, that puts it out of reach.",
+      solution:
+        "An AI system that runs locally and searches a curated knowledge base of 12 WHO and Federal Ministry of Health topics before answering. Users can ask by text, voice or image, and get an answer in their chosen language. Patient data never leaves the device.",
+      role: "Solo: built the retrieval pipeline over the health knowledge base, the Django backend, the React frontend, and connected speech, image and translation models around the core language model.",
+      keyFeatures: [
+        "Accepts questions by text, voice or image",
+        "Answers grounded in a 12-topic WHO/FMOH knowledge base covering malaria, diabetes, hypertension, maternal health and more",
+        "Responds in English, Yoruba, Hausa, Igbo and Nigerian Pidgin",
+        "Runs entirely offline on a standard laptop",
+        "Patient data never leaves the device",
+      ],
+      challenges:
+        "Getting a small local model (3.8 billion parameters, no cloud fallback) to stay grounded in the source documents rather than making things up, and chaining four separate models (language, translation, speech, vision) into one offline pipeline without a GPU server.",
+      statusNote:
+        "Prototype. Built and presented as my final-year project (CSC 431, University of Ilorin, 2026). Not deployed as a public product.",
+    },
+  },
+  {
+    slug: "khk",
+    name: "KHK",
+    tagline:
+      "A clothing store where customers design their own top and see it in 3D before ordering",
+    summary:
+      "A mobile-first fashion store built around a real-time 3D customiser: customers choose the neckline, sleeves, colour and print, and see the garment take shape before they order.",
+    category: ["E-commerce"],
+    status: "In Progress",
+    year: "2026",
+    stack: [
+      "Next.js 15",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Three.js",
+      "Zustand",
+      "Supabase",
+      "Prisma",
+      "Vitest",
+    ],
+    demo: "https://khk-red.vercel.app",
+    demoLabel: "Live demo",
+    screenshot: "/projects/khk.jpg",
+    featured: true,
+    priority: 9,
+    caseStudy: {
+      idea: "Give a clothing brand's customers a real 'design your own' experience, where they can see the garment change as they make choices, instead of picking from a few dropdowns.",
+      problem:
+        "Made-to-order clothing sites usually reduce customisation to a handful of dropdowns with no visual feedback. Customers commit to an order without seeing what they'll get.",
+      solution:
+        "A custom top builder with a real-time 3D preview, driven by options for neckline, sleeve, fabric, colour and print placement, with a live price breakdown and a shareable design link. It sits inside a full store with catalogue, cart, checkout, sign-in and an admin mode.",
+      role: "Solo: built the customiser's geometry (garment outlines, the 3D model, pricing rules, and matching a custom design to the nearest catalogue product), plus the store around it.",
+      keyFeatures: [
+        "Real-time 3D garment preview for neckline, sleeve, colour and print",
+        "2D garment illustrations generated from the same shapes, for fast previews",
+        "Price breakdown that updates as options change",
+        "Shareable links to a customer's exact design",
+        "Full store on demo data: browsing, customising, signing in and checkout all work",
+      ],
+      challenges:
+        "Generating correct garment shapes from a small set of choices (neckline, sleeve, fit) without drawing every combination by hand, and keeping the 3D preview, 2D illustration and price in sync from one shared set of options.",
+      statusNote:
+        "In progress. Phase 1 of a planned five-phase build. The customiser, catalogue and checkout work end to end on demo data; live payments (Paystack/Flutterwave) and the production database are next.",
+    },
+  },
+  {
+    slug: "vidnex",
+    name: "vidnex",
+    tagline:
+      "A short-video platform for African entertainment with a built-in fan-to-creator token",
+    summary:
+      "A short-form video platform for African entertainment where fans support creators directly through a single in-app token. Built in milestones; the marketing site and creator waitlist are live.",
+    category: ["Blockchain / Web3", "Websites"],
+    status: "In Progress",
+    year: "2026",
+    stack: [
+      "Next.js 15",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Drizzle ORM",
+      "Neon Postgres",
+      "Upstash Redis",
+      "Auth.js v5",
+      "PostHog",
+    ],
+    github: "https://github.com/Raz-01/vidnex",
+    demo: "https://vidnex-chi.vercel.app",
+    demoLabel: "Marketing site",
+    screenshot: "/projects/vidnex.jpg",
+    featured: false,
+    priority: 10,
+    caseStudy: {
+      idea: "A home for African entertainment, starting with one focused scene (Afrobeats and Nigerian comedy), where short videos bring people in, creator-fan relationships keep them, and a single in-app token is how fans support creators. Creators bring their existing audience rather than leaving other platforms.",
+      problem:
+        "Creators build real audiences on platforms that give fans no meaningful way to support them directly. Most 'token' products in this space are either speculative or a gimmick with no link to actual engagement.",
+      solution:
+        "A token system (earning, spending, creator balances) built around four uses: Support, Access, Boost and Membership. Strict rules keep it non-speculative: users can earn but not withdraw, rewards diminish to discourage farming, and ordinary interactions (watching, liking, commenting, following) are always free. For now the token runs on an internal ledger designed so it can move on-chain later without a rewrite.",
+      role: "Solo founder and developer: wrote the product brief and token model, designed the ledger (balanced double-entry transfers, safe retries, full audit trail), and am building it milestone by milestone.",
+      keyFeatures: [
+        "Marketing site and creator waitlist live",
+        "Token ledger where every earn, spend and transfer is an auditable database record",
+        "Four spending options designed end to end: Support (tips), Access (unlocks), Boost (capped promotion), Membership (fan clubs)",
+        "Earning rules designed to resist bot farming",
+        "Built in five milestones, each one deployable and demoable on its own",
+      ],
+      challenges:
+        "Designing a token economy that avoids speculation and pay-to-win promotion. Boost spending is capped and split between creator and platform specifically to prevent vote-buying.",
+      statusNote:
+        "In progress. The marketing site and creator waitlist are live; sign-in, video and the token features are in development. Moving the token on-chain (Solana) is a later goal, not yet built.",
+    },
+  },
+  {
+    slug: "sports-etcetera",
+    name: "Sports Etcetera",
+    tagline: "An online store for a Lagos sports retailer, with Paystack checkout",
+    summary:
+      "An online store for a sports retailer (catalogue, cart and Paystack checkout), planned with a product brief, database design and roadmap before any screens were built.",
+    category: ["E-commerce"],
+    status: "Prototype",
+    year: "2026",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Supabase Postgres",
+      "Drizzle ORM",
+      "Paystack",
+      "Playwright",
+    ],
+    demo: "https://sports-etcetera.vercel.app",
+    demoLabel: "Live demo",
+    screenshot: "/projects/sports-etcetera.jpg",
+    featured: false,
+    priority: 11,
+    caseStudy: {
+      idea: "Give a local sports retailer a proper online store: browse by category and brand, manage stock and delivery zones, and pay with a Nigerian payment provider.",
+      problem:
+        "Small retailers often have no online store, or a generic one that doesn't fit their catalogue (sizes, brands, stock per variant) or their local payment and delivery needs.",
+      solution:
+        "A storefront built on a documented product, pricing, inventory and order model, with categories, brands, delivery zones and Paystack payment, planned like a real product (brief, database design, component plan, roadmap) before it was built.",
+      role: "Solo: designed the data model and business logic (pricing, inventory, orders, audit) and built the storefront and checkout on top of it.",
+      keyFeatures: [
+        "Product catalogue with categories, brands and delivery zones",
+        "Cart and Paystack checkout",
+        "Pricing, inventory, order and audit logic kept separate from the screens",
+        "Realistic demo data",
+        "Unit tests and end-to-end browser tests",
+      ],
+      challenges:
+        "Modelling inventory and delivery-zone pricing flexibly enough for a multi-category retailer, while keeping business logic separate from the interface so it stays testable as the catalogue grows.",
+      statusNote:
+        "Prototype. A working storefront and checkout flow; not a live store for the business it was designed around.",
     },
   },
   {
     slug: "meliboard",
     name: "Meliboard",
-    tagline: "An Android keyboard that rewrites your text with Gemini",
+    tagline: "An Android keyboard that rewrites your text with AI, in any app",
     summary:
-      "A custom Android keyboard with one extra power: select any text you've typed, tap Enhance, and it's rewritten in place (Improve, Grammar, Formal, or Casual) by Gemini.",
+      "A custom Android keyboard with one extra feature: select any text you've typed, tap Enhance, and it's rewritten in place (improved, corrected, more formal or more casual) using Google's Gemini.",
     category: ["AI & Automation", "Mobile"],
     status: "Prototype",
     year: "2026",
     stack: ["Kotlin", "Android IME", "FastAPI", "Gemini API"],
     github: "https://github.com/Raz-01/Meliboard",
     featured: false,
-    priority: 8,
+    priority: 12,
     caseStudy: {
-      idea: "Put AI text-enhancement directly into the keyboard layer, so it works inside any app, not locked into one chat product.",
+      idea: "Put AI writing help into the keyboard itself, so it works in every app instead of inside one chat product.",
       problem:
-        "AI writing assistants are usually confined to a single app. There's no equivalent of 'fix this text' available wherever you happen to be typing.",
+        "AI writing assistants usually live inside a single app. There's no simple 'fix this text' available wherever you happen to be typing.",
       solution:
-        "A working Android IME: a full custom keyboard (QWERTY, shift/caps, symbols, standard editing) with one extra capability: select text, tap Enhance, and the keyboard sends it to a FastAPI backend, which calls Gemini and swaps in the rewritten result.",
-      role: "Solo: built the Android keyboard service and settings UI in Kotlin, and the FastAPI backend that mediates the Gemini API call.",
+        "A working Android keyboard (letters, shift, symbols, standard editing) with one addition: select text, tap Enhance, and the keyboard sends it to a small backend that calls Gemini and replaces it with the rewritten version.",
+      role: "Solo: built the Android keyboard and settings screen in Kotlin, and the FastAPI backend that calls Gemini.",
       keyFeatures: [
-        "Fully working custom keyboard: letters, shift/caps-lock, symbols, backspace with long-press repeat, enter",
-        "Four rewrite modes (Improve, Grammar, Formal, Casual) selectable from a mode pill",
-        "Reads the current text selection in any app and replaces it in place with the rewritten version",
-        "Configurable backend URL and API token from a settings screen",
+        "Fully working keyboard: letters, shift and caps lock, symbols, backspace with long-press repeat",
+        "Four rewrite modes: Improve, Grammar, Formal and Casual",
+        "Reads the selected text in any app and replaces it in place",
+        "Configurable backend address and API token in settings",
       ],
       challenges:
-        "Working within Android's InputMethodService and text-selection APIs to reliably read and replace selected text across arbitrary third-party apps, not just a text field it controls.",
+        "Working within Android's keyboard and text-selection APIs to reliably read and replace selected text inside other apps, not just a text field the keyboard controls.",
       statusNote:
-        "Prototype: end-to-end working (keyboard → backend → Gemini → replaced text). Not published to the Play Store.",
+        "Prototype. Works end to end (keyboard, backend, Gemini, replaced text). Not published on the Play Store.",
     },
   },
   {
     slug: "firdaos-haven",
     name: "Firdaos Haven",
-    tagline: "A premium fragrance e-commerce concept",
+    tagline: "An online store concept for a premium fragrance brand",
     summary:
-      "A scroll-driven, editorial-feeling storefront concept for a fragrance and home-scent brand, self-documented as a production-quality prototype, not a finished commerce system.",
+      "A storefront for a fragrance and home-scent brand, designed to feel premium through scroll-based storytelling, with a product catalogue, cart, wishlist and admin login.",
     category: ["E-commerce"],
     status: "Prototype",
     year: "2026",
@@ -366,33 +568,32 @@ export const projects: Project[] = [
     demoLabel: "Live demo",
     screenshot: "/projects/firdaos-haven.jpg",
     featured: false,
-    priority: 9,
+    priority: 13,
     caseStudy: {
-      idea: "Explore a polished, editorial storefront for a fragrance brand (the tactile, scroll-triggered e-commerce feel premium scent brands use) built as a reusable template.",
+      idea: "A polished, editorial-style store for a fragrance brand, built as a reusable template.",
       problem:
-        "Most small-brand e-commerce sites lean on generic templates that don't convey a sensory, premium product like fragrance.",
+        "Small brands often rely on generic store templates that don't convey a sensory, premium product like fragrance.",
       solution:
-        "A Next.js storefront with a scroll-driven hero (a mist-and-notes animation), a Postgres-backed product catalog with photo uploads via Vercel Blob, cart and wishlist state persisted client-side, and a single signed-in admin login for catalog management.",
-      role: "Solo: built the storefront, the admin auth/session layer (signed cookies, hashed passwords), and the product data layer.",
+        "A storefront with a scroll-driven hero, a product catalogue stored in Postgres with photo uploads, a cart and wishlist that persist between visits, and an admin login for managing products.",
+      role: "Solo: built the storefront, the admin sign-in (signed sessions, hashed passwords) and the product data layer.",
       keyFeatures: [
-        "Scroll-reveal, hover, and hero animations tuned for a fragrance brand",
-        "Product catalog with image uploads via Vercel Blob",
-        "Cart and wishlist with persisted state",
-        "Single admin login for catalog management",
-        "Documented known limitations rather than presented as payment-ready",
+        "Scroll, hover and hero animations tuned for a fragrance brand",
+        "Product catalogue with image uploads",
+        "Cart and wishlist that persist between visits",
+        "Admin login for catalogue management",
       ],
       challenges:
-        "Getting the animation layer (scroll reveals, hover states, the hero mist effect) to feel premium rather than gimmicky, and building real admin auth (signed sessions, hashed passwords) for what's otherwise a template-style project.",
+        "Making the animation feel premium rather than gimmicky, and adding proper admin security to what is otherwise a template project.",
       statusNote:
-        "Prototype: self-documented as a 'production-quality prototype, not a finished production system.' Not verified as processing real orders or payments.",
+        "Prototype. Documented as a production-quality prototype rather than a finished store; not processing real orders or payments.",
     },
   },
   {
     slug: "ceo-damola-jewels",
     name: "CEO Damola Jewels",
-    tagline: "An independent jewelry storefront concept",
+    tagline: "A simple jewellery store with Paystack checkout and WhatsApp support",
     summary:
-      "A minimal jewelry e-commerce concept (catalog, cart, Paystack checkout, and WhatsApp order support) built around keeping the buying path as short as possible.",
+      "A minimal jewellery store (catalogue, cart, Paystack checkout and WhatsApp contact) built to keep the path from browsing to paying as short as possible.",
     category: ["E-commerce"],
     status: "Concept",
     year: "2026",
@@ -401,25 +602,25 @@ export const projects: Project[] = [
     demoLabel: "Live demo",
     screenshot: "/projects/ceo-damola-jewels.jpg",
     featured: false,
-    priority: 10,
+    priority: 14,
     caseStudy: {
-      idea: "A minimal, elegant storefront for a jewelry brand where the purchase path stays short (browse, add to cart, pay) with WhatsApp as the fallback for anything a checkout form can't handle.",
+      idea: "A clean storefront for a jewellery brand where buying takes as few steps as possible (browse, add to cart, pay), with WhatsApp for anything a checkout form can't handle.",
       problem:
-        "A small jewelry brand needs to sell online without the overhead of a full commerce platform, while still giving customers a direct, human line of contact.",
+        "A small jewellery brand needs to sell online without the overhead of a full commerce platform, while keeping a direct, personal line to customers.",
       solution:
-        "A single-page storefront with category filtering, a cart drawer, and a checkout form that hands off to Paystack for payment, plus a WhatsApp number surfaced for direct customer contact; product images served via Cloudinary with an admin-editable product API.",
-      role: "Solo: built the storefront UI, cart logic, Paystack initialize/verify integration, and the products/orders API routes.",
+        "A single-page store with category filtering, a cart drawer and Paystack checkout, plus a WhatsApp number for direct contact. Product images are served through Cloudinary, with an admin product API.",
+      role: "Solo: built the storefront, cart, Paystack payment and verification, and the product and order API.",
       keyFeatures: [
-        "Category-filterable product catalog",
+        "Product catalogue filterable by category",
         "Cart with quantity controls",
-        "Paystack-powered checkout with order confirmation",
-        "WhatsApp contact link for direct sales support",
-        "Simple admin/auth for product and order management",
+        "Paystack checkout with order confirmation",
+        "WhatsApp link for direct sales support",
+        "Simple admin for products and orders",
       ],
       challenges:
-        "Keeping the buying flow to as few steps as possible for a single-brand catalog without losing basic commerce essentials: stock checks, order confirmation, payment verification.",
+        "Keeping the buying flow short for a single-brand catalogue without dropping essentials: stock checks, order confirmation and payment verification.",
       statusNote:
-        "Concept: an independent project exploring a lightweight jewelry storefront, not built under a confirmed commercial engagement.",
+        "Concept. An independent project exploring a lightweight jewellery store, not built for a client.",
     },
   },
 ];

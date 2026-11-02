@@ -21,21 +21,20 @@ export const metadata: Metadata = {
     default: `${site.name} · ${site.role}`,
     template: `%s · ${site.name}`,
   },
-  description:
-    "I build digital products across web, software, AI/automation, and emerging technology: real prototypes, e-commerce platforms, automation tools, and product experiments, not client testimonials.",
+  description: site.description,
   keywords: [
     "Ibrahim Abdulrahman",
-    "software developer",
-    "full-stack developer",
-    "Next.js developer",
-    "AI developer",
-    "Nigeria developer portfolio",
+    "software developer Nigeria",
+    "custom software development",
+    "restaurant POS Nigeria",
+    "business management system",
+    "website developer Nigeria",
+    "AI automation",
   ],
   authors: [{ name: site.name }],
   openGraph: {
     title: `${site.name} · ${site.role}`,
-    description:
-      "I build digital products across web, software, AI/automation, and emerging technology.",
+    description: site.description,
     url: site.url,
     siteName: site.name,
     type: "website",
@@ -43,8 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `${site.name} · ${site.role}`,
-    description:
-      "I build digital products across web, software, AI/automation, and emerging technology.",
+    description: site.description,
   },
 };
 

@@ -13,7 +13,7 @@ export function Footer() {
     <footer className="border-t border-border">
       <div className="container-page flex flex-col gap-8 py-12 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="font-mono text-sm text-text">{site.name}</p>
+          <p className="text-sm font-medium text-text">{site.name}</p>
           <p className="mt-1 text-sm text-text-faint">
             {site.role} · {site.location}
           </p>
@@ -36,7 +36,7 @@ export function Footer() {
         <div className="flex items-center gap-4 text-xs text-text-faint">
           <span>&copy; {new Date().getFullYear()}</span>
           <Link href="/#contact" className="hover:text-text-muted">
-            Have an idea? Let&apos;s build it.
+            Start a project
           </Link>
         </div>
       </div>

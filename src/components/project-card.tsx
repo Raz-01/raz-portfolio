@@ -1,13 +1,9 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Globe } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/types";
 import { StatusBadge } from "./ui/status-badge";
 import { Reveal } from "./ui/reveal";
-import { GithubIcon } from "./ui/icons";
 
 function initials(name: string) {
   return name
@@ -19,122 +15,91 @@ function initials(name: string) {
     .toUpperCase();
 }
 
-export function ProjectCard({ project, index }: { project: Project; index: number }) {
+/** The project's screenshot, or a plain monogram when there isn't one. Never a fabricated image. */
+export function ProjectVisual({
+  project,
+  sizes,
+  priority = false,
+}: {
+  project: Project;
+  sizes: string;
+  priority?: boolean;
+}) {
+  if (project.screenshot) {
+    return (
+      <Image
+        src={project.screenshot}
+        alt={`Screenshot of ${project.name}`}
+        fill
+        priority={priority}
+        sizes={sizes}
+        className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+      />
+    );
+  }
   return (
-    <Reveal delay={Math.min(index * 0.06, 0.3)}>
-      <motion.div
-        whileHover={{ y: -4 }}
-        transition={{ type: "spring", stiffness: 300, damping: 24 }}
-        className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-colors duration-300 hover:border-border-strong"
-      >
-        <Link
-          href={`/work/${project.slug}`}
-          className="absolute inset-0 z-10"
-          aria-label={`View case study: ${project.name}`}
-        />
+    <div className="absolute inset-0 flex items-center justify-center">
+      <span className="font-mono text-5xl font-medium tracking-tighter text-text-faint">
+        {initials(project.name)}
+      </span>
+    </div>
+  );
+}
 
-        {/* Visual header: a real screenshot of the live site when one exists, otherwise a generated mark (never a fabricated screenshot) */}
-        <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-border bg-bg-elevated">
-          {project.screenshot ? (
-            <>
-              <Image
-                src={project.screenshot}
-                alt={`${project.name} homepage`}
-                fill
-                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-bg-elevated/90 via-bg-elevated/0 to-bg-elevated/40"
-              />
-            </>
-          ) : (
-            <>
-              <div
-                aria-hidden
-                className="absolute inset-0 opacity-[0.15]"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(var(--color-border-strong) 1px, transparent 1px), linear-gradient(90deg, var(--color-border-strong) 1px, transparent 1px)",
-                  backgroundSize: "28px 28px",
-                }}
-              />
-              <span className="relative font-mono text-6xl font-medium tracking-tighter text-text-faint transition-colors duration-300 group-hover:text-accent-border">
-                {initials(project.name)}
-              </span>
-            </>
-          )}
-          <span className="absolute left-4 top-4 font-mono text-xs text-text-faint">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <span className="absolute right-4 top-4">
+export function ProjectCard({
+  project,
+  index = 0,
+  size = "default",
+}: {
+  project: Project;
+  index?: number;
+  size?: "default" | "wide";
+}) {
+  const wide = size === "wide";
+
+  return (
+    <Reveal delay={Math.min(index * 0.05, 0.2)} className="h-full">
+      <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-colors duration-300 hover:border-border-strong">
+        <div className="relative aspect-[16/10] overflow-hidden border-b border-border bg-bg-elevated">
+          <ProjectVisual
+            project={project}
+            sizes={
+              wide
+                ? "(min-width: 768px) 50vw, 100vw"
+                : "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            }
+          />
+          <span className="absolute right-3 top-3 rounded-full bg-bg/85 backdrop-blur-sm">
             <StatusBadge status={project.status} />
           </span>
         </div>
 
-        <div className="flex flex-1 flex-col p-6">
-          <div className="mb-2 flex flex-wrap gap-x-2 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-accent">
-            {project.category.map((c) => (
-              <span key={c}>{c}</span>
-            ))}
-          </div>
-          <h3 className="text-xl font-medium text-text">{project.name}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-text-muted">
-            {project.tagline}
+        <div className={`flex flex-1 flex-col ${wide ? "p-6 md:p-8" : "p-6"}`}>
+          <p className="mb-2.5 font-mono text-[11px] uppercase tracking-wider text-accent">
+            {project.category.join(" · ")}
           </p>
 
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {project.stack.slice(0, 4).map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full border border-border px-2.5 py-0.5 font-mono text-[11px] text-text-faint"
-              >
-                {tech}
-              </span>
-            ))}
-            {project.stack.length > 4 ? (
-              <span className="rounded-full border border-border px-2.5 py-0.5 font-mono text-[11px] text-text-faint">
-                +{project.stack.length - 4}
-              </span>
-            ) : null}
-          </div>
+          <h3 className={`font-medium text-text ${wide ? "text-2xl" : "text-xl"}`}>
+            <Link
+              href={`/work/${project.slug}`}
+              className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
+            >
+              {project.name}
+            </Link>
+          </h3>
+          <p className="mt-2 flex-1 text-sm leading-relaxed text-text-muted md:text-[15px]">
+            {wide ? project.summary : project.tagline}
+          </p>
 
-          <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
-            <div className="flex items-center gap-3">
-              {project.github ? (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative z-20 flex h-8 w-8 items-center justify-center rounded-full text-text-faint transition-colors hover:bg-surface-hover hover:text-text"
-                  aria-label={`${project.name} on GitHub`}
-                >
-                  <GithubIcon size={15} />
-                </a>
-              ) : null}
-              {project.demo ? (
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative z-20 flex h-8 w-8 items-center justify-center rounded-full text-text-faint transition-colors hover:bg-surface-hover hover:text-text"
-                  aria-label={`${project.name} live demo`}
-                >
-                  <Globe size={15} />
-                </a>
-              ) : null}
-            </div>
-            <span className="relative z-20 inline-flex items-center gap-1 font-mono text-xs uppercase tracking-wider text-text-muted transition-colors group-hover:text-accent-bright">
-              Case study
-              <ArrowUpRight
-                size={13}
-                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </span>
-          </div>
+          <span className="mt-6 inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors group-hover:text-accent-bright">
+            View project
+            <ArrowUpRight
+              size={14}
+              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
+          </span>
         </div>
-      </motion.div>
+      </article>
     </Reveal>
   );
 }

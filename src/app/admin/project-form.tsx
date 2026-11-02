@@ -59,7 +59,9 @@ export function ProjectForm({
           <input
             name="slug"
             defaultValue={project?.slug}
-            disabled={!isNew}
+            // readOnly, not disabled: disabled inputs are left out of the
+            // submitted form, which made every edit fail slug validation.
+            readOnly={!isNew}
             required
             pattern="[a-z0-9-]+"
             className={`${inputClass} ${!isNew ? "opacity-60" : ""}`}
@@ -75,7 +77,7 @@ export function ProjectForm({
           />
         </Field>
 
-        <Field label="Tagline">
+        <Field label="Tagline" hint="One line saying what it is and who it's for. Shown on every project card.">
           <input
             name="tagline"
             defaultValue={project?.tagline}
@@ -84,7 +86,10 @@ export function ProjectForm({
           />
         </Field>
 
-        <Field label="Summary" hint="Shown on the project card.">
+        <Field
+          label="Summary"
+          hint="Two or three plain-language sentences. Shown on the homepage spotlight and in search previews."
+        >
           <textarea
             name="summary"
             defaultValue={project?.summary}
@@ -160,7 +165,10 @@ export function ProjectForm({
           </label>
         </div>
 
-        <Field label="Priority" hint="Lower numbers show first.">
+        <Field
+          label="Priority"
+          hint="Lower numbers show first, on the homepage and on /work. The featured project with the lowest number gets the large spotlight on the homepage; the next two get wide cards."
+        >
           <input
             type="number"
             name="priority"
@@ -201,7 +209,7 @@ export function ProjectForm({
           Case study
         </h2>
 
-        <Field label="The idea">
+        <Field label="Overview">
           <textarea
             name="csIdea"
             defaultValue={project?.caseStudy.idea}
@@ -219,7 +227,7 @@ export function ProjectForm({
             className={inputClass}
           />
         </Field>
-        <Field label="The solution">
+        <Field label="What I built">
           <textarea
             name="csSolution"
             defaultValue={project?.caseStudy.solution}
@@ -246,7 +254,7 @@ export function ProjectForm({
             className={inputClass}
           />
         </Field>
-        <Field label="Challenges">
+        <Field label="Technical challenges">
           <textarea
             name="csChallenges"
             defaultValue={project?.caseStudy.challenges}
@@ -255,7 +263,7 @@ export function ProjectForm({
             className={inputClass}
           />
         </Field>
-        <Field label="Status note">
+        <Field label="Current status">
           <textarea
             name="csStatusNote"
             defaultValue={project?.caseStudy.statusNote}

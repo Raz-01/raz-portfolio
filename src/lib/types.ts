@@ -6,12 +6,13 @@ export type ProjectStatus =
   | "Concept";
 
 export type ProjectCategory =
-  | "Web Development"
+  | "Business Software"
+  | "Websites"
+  | "Education"
   | "E-commerce"
   | "AI & Automation"
-  | "Blockchain / Web3"
   | "Mobile"
-  | "Business Application";
+  | "Blockchain / Web3";
 
 export interface CaseStudy {
   idea: string;
@@ -35,7 +36,7 @@ export interface Project {
   github?: string;
   demo?: string;
   demoLabel?: string;
-  /** Real screenshot of the live site, in /public/projects. Omit if no public demo exists; never fabricate one. */
+  /** Real screenshot of the project, in /public/projects or Vercel Blob. Omit rather than fabricate one. */
   screenshot?: string;
   featured: boolean;
   priority: number;

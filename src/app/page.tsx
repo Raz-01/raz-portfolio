@@ -1,9 +1,7 @@
 import { Hero } from "@/components/sections/hero";
 import { SelectedWork } from "@/components/sections/selected-work";
+import { Services } from "@/components/sections/services";
 import { About } from "@/components/sections/about";
-import { Capabilities } from "@/components/sections/capabilities";
-import { TechStack } from "@/components/sections/tech-stack";
-import { CurrentlyBuilding } from "@/components/sections/currently-building";
 import { Contact } from "@/components/sections/contact";
 
 export default function Home() {
@@ -11,10 +9,8 @@ export default function Home() {
     <>
       <Hero />
       <SelectedWork />
+      <Services />
       <About />
-      <Capabilities />
-      <TechStack />
-      <CurrentlyBuilding />
       <Contact />
     </>
   );

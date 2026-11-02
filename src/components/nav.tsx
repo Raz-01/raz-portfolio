@@ -8,8 +8,8 @@ import { site } from "@/lib/site";
 
 const links = [
   { href: "/#work", label: "Work" },
+  { href: "/#services", label: "Services" },
   { href: "/#about", label: "About" },
-  { href: "/#stack", label: "Stack" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -44,11 +44,9 @@ export function Nav() {
       <div className="container-page flex h-16 items-center justify-between md:h-20">
         <Link
           href="/"
-          className="font-mono text-sm tracking-tight text-text transition-colors hover:text-accent-bright"
+          className="text-[15px] font-medium tracking-tight text-text transition-colors hover:text-accent-bright"
         >
-          {site.shortName}
-          <span className="text-accent">.</span>
-          <span className="text-text-faint">dev</span>
+          {site.name}
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -56,16 +54,16 @@ export function Nav() {
             <Link
               key={link.href}
               href={link.href}
-              className="font-mono text-xs uppercase tracking-[0.15em] text-text-muted transition-colors hover:text-text"
+              className="text-sm text-text-muted transition-colors hover:text-text"
             >
               {link.label}
             </Link>
           ))}
           <Link
             href="/#contact"
-            className="rounded-full border border-border-strong px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-text transition-colors hover:border-accent-border hover:text-accent-bright"
+            className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-accent-bright"
           >
-            Let&apos;s talk
+            Start a project
           </Link>
         </nav>
 
@@ -103,11 +101,17 @@ export function Nav() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="rounded-lg px-3 py-3 font-mono text-sm uppercase tracking-wider text-text-muted hover:bg-surface hover:text-text"
+                  className="rounded-lg px-3 py-3 text-base text-text-muted hover:bg-surface hover:text-text"
                 >
                   {link.label}
                 </Link>
               ))}
+              <Link
+                href="/#contact"
+                className="mt-2 rounded-full bg-accent px-4 py-3 text-center text-sm font-medium text-bg"
+              >
+                Start a project
+              </Link>
             </div>
           </motion.nav>
         ) : null}

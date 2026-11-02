@@ -1,7 +1,12 @@
+/**
+ * Site-wide details and homepage copy, kept in one place so wording can be
+ * changed without touching components. Project content lives in the
+ * database and is edited through /admin.
+ */
 export const site = {
   name: "Ibrahim Abdulrahman",
   shortName: "Ibrahim",
-  role: "Software & Product Developer",
+  role: "Software Developer",
   location: "Nigeria",
   email: "razza26raman@gmail.com",
   github: "https://github.com/Raz-01",
@@ -11,101 +16,93 @@ export const site = {
   whatsapp: "https://wa.me/2347085645209",
   whatsappDisplay: "+234 708 564 5209",
   url: "https://raz.is-a.dev",
+  description:
+    "Software developer in Nigeria building business systems, websites and AI-powered tools: from an offline-first restaurant point of sale to hotel booking sites and school portals.",
 };
 
-export interface Capability {
+export const hero = {
+  eyebrow: "Software developer · Nigeria",
+  headline: "Software that helps businesses run better.",
+  intro:
+    "I design and build business systems, websites and AI-powered tools for organisations in Nigeria. Practical software that fits how the business actually works, including when the internet doesn't.",
+  primaryCta: "See my work",
+  secondaryCta: "Start a project",
+};
+
+export interface Service {
   title: string;
   description: string;
-  tags: string[];
+  examples: string;
 }
 
-export const capabilities: Capability[] = [
+export const services: Service[] = [
   {
-    title: "Full-Stack Product Development",
+    title: "Business systems",
     description:
-      "Taking a product from schema to shipped screen: data model, API routes, auth, payments, and the admin tooling that runs it, in one coherent codebase.",
-    tags: ["Next.js", "TypeScript", "Postgres", "Drizzle / Prisma", "Auth"],
+      "Point-of-sale, inventory, bookings, staff roles and reporting. Custom software built around how your business operates, with an admin dashboard so you can see what's happening.",
+    examples: "Item7Go POS, Ilorin Bulk Mart",
   },
   {
-    title: "Frontend & Interaction Design",
+    title: "Websites that do something",
     description:
-      "Component-driven UIs with real motion design (scroll reveals, real-time 3D previews, animated state) built to stay fast, not just look good in a demo.",
-    tags: ["React", "Tailwind CSS", "Framer Motion", "Three.js"],
+      "Professional websites for hotels, schools and businesses that go beyond a brochure: online booking, admissions, quotes, payments and enquiries that land where you need them.",
+    examples: "Whitefield Hotel, Greenfield College, Solar Nigeria",
   },
   {
-    title: "AI & Automation",
+    title: "AI and automation",
     description:
-      "RAG pipelines over real document sets, local LLMs with no cloud dependency, and chat-based automation: Telegram bots that move real transactions, not toy demos.",
-    tags: ["LangChain", "ChromaDB", "Ollama", "Gemini API", "Grammy"],
+      "Tools that take repetitive work off your team, from chat bots that handle transactions to AI assistants grounded in your own documents, and automation that connects software to physical devices.",
+    examples: "Mayor Wizzy's Exchange, HealthLit AI",
   },
   {
-    title: "Blockchain & Web3-Adjacent Systems",
+    title: "Online stores and payments",
     description:
-      "Token-ledger design with real accounting discipline, on-chain integrations (Tron), and architecture that keeps a path open to full on-chain settlement.",
-    tags: ["Token Ledgers", "Tron", "Solana (planned)"],
-  },
-  {
-    title: "E-commerce & Payments",
-    description:
-      "Paystack-powered checkout across multiple storefronts, plus the inventory, pricing, and order logic underneath, not just a shopping cart UI.",
-    tags: ["Paystack", "Cart & Checkout", "Inventory Logic"],
-  },
-  {
-    title: "Product Thinking",
-    description:
-      "Most of these projects started as a written brief (a PRD, a decisions log, a token model) before a line of UI existed. I plan like a product person, then build like an engineer.",
-    tags: ["Architecture", "Documentation", "Roadmapping"],
+      "Online stores with Paystack checkout, stock tracking, delivery options and WhatsApp handoff, built for how Nigerian customers actually buy.",
+    examples: "KHK, Sports Etcetera",
   },
 ];
+
+export const about = {
+  title: "I build software for the problems businesses actually have.",
+  paragraphs: [
+    "I'm a software developer in Nigeria and a Computer Science graduate of the University of Ilorin. I build complete systems: the screens people use, the database underneath, the admin tools that run it, and the tests that keep it working.",
+    "My most substantial work is Item7Go POS, a point-of-sale and operations system for a restaurant, built to keep working through internet outages without losing a sale. Most of my other projects follow the same pattern: a real kind of business, a specific problem, and software designed around how that business works.",
+    "Before writing code, I write down what the system needs to do and how its data fits together. It's slower at the start and much faster after, and it's why I can take a project from an idea to something people rely on.",
+  ],
+  facts: [
+    { label: "Based in", value: "Nigeria" },
+    { label: "Education", value: "Computer Science, University of Ilorin" },
+    { label: "Works on", value: "Business software, websites, AI tools" },
+    { label: "Open to", value: "Freelance projects and collaborations" },
+  ],
+};
 
 export interface TechGroup {
   label: string;
   items: string[];
 }
 
+/** Tools used across the projects on this site. */
 export const techStack: TechGroup[] = [
   {
     label: "Languages",
-    items: ["TypeScript", "JavaScript", "Python", "Rust", "Kotlin", "SQL"],
+    items: ["TypeScript", "Python", "Kotlin", "Rust", "SQL"],
   },
   {
-    label: "Frontend",
-    items: [
-      "React",
-      "Next.js",
-      "Tailwind CSS",
-      "Framer Motion",
-      "Three.js",
-      "Zustand",
-      "shadcn/ui",
-    ],
+    label: "Web and desktop",
+    items: ["React", "Next.js", "Tauri", "Tailwind CSS"],
   },
   {
-    label: "Backend",
-    items: ["Node.js", "Django REST Framework", "Fastify", "FastAPI"],
+    label: "Backend and data",
+    items: ["Node.js", "Django", "FastAPI", "PostgreSQL", "SQLite", "Redis"],
   },
   {
-    label: "Data",
-    items: [
-      "PostgreSQL",
-      "Supabase",
-      "Neon",
-      "Drizzle ORM",
-      "Prisma",
-      "SQLite",
-      "Redis",
-    ],
-  },
-  {
-    label: "AI / ML",
-    items: ["LangChain", "ChromaDB", "Ollama", "Gemini API", "Whisper", "NLLB-200"],
-  },
-  {
-    label: "Blockchain & Payments",
-    items: ["Tron", "Paystack", "Mono"],
-  },
-  {
-    label: "Tooling",
-    items: ["Vercel", "Railway", "Docker", "Vitest", "Playwright", "Git"],
+    label: "AI and integrations",
+    items: ["LangChain", "Ollama", "Gemini API", "Paystack", "Telegram bots"],
   },
 ];
+
+export const contact = {
+  title: "Have a problem software could solve?",
+  body: "Tell me about your business and what's slowing it down. I'll tell you plainly whether software is the right fix, and what it would take to build. Email or WhatsApp is the fastest way to reach me.",
+};

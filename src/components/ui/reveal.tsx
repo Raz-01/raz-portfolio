@@ -12,12 +12,12 @@ interface RevealProps {
 }
 
 const variants: Variants = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 12 },
   visible: (delay: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.5,
       delay,
       ease: [0.16, 1, 0.3, 1],
     },

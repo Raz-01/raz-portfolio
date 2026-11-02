@@ -84,7 +84,10 @@ export async function saveProject(
 ): Promise<SaveState> {
   await requireAuth();
 
-  const slug = String(formData.get("slug") ?? "").trim();
+  // Slugs can't change after creation, so edits always keep the original.
+  const slug = isNew
+    ? String(formData.get("slug") ?? "").trim()
+    : (originalSlug ?? "");
   if (!/^[a-z0-9-]+$/.test(slug)) {
     return {
       error: "Slug must be lowercase letters, numbers, and hyphens only.",

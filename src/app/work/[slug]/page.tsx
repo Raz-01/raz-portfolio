@@ -8,6 +8,7 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
 import { GithubIcon } from "@/components/ui/icons";
+import { site } from "@/lib/site";
 
 // No generateStaticParams: projects are added/edited through /admin without
 // a redeploy, so this route renders on demand and is cached (then busted via
@@ -28,11 +29,14 @@ export async function generateMetadata({
   };
 }
 
+// Ordered for a non-technical reader first: what it is, why it matters, what
+// was built. The engineering detail follows for technical readers.
 const sections = [
-  { key: "idea", label: "The Idea" },
-  { key: "problem", label: "The Problem" },
-  { key: "solution", label: "The Solution" },
-  { key: "role", label: "My Role" },
+  { key: "idea", label: "Overview" },
+  { key: "problem", label: "The problem" },
+  { key: "solution", label: "What I built" },
+  { key: "role", label: "My role" },
+  { key: "challenges", label: "Technical challenges" },
 ] as const;
 
 export default async function ProjectPage({
@@ -95,21 +99,11 @@ export default async function ProjectPage({
             ) : null}
             {!project.demo && !project.github ? (
               <span className="font-mono text-xs text-text-faint">
-                Private repository, no public link available
+                Source code is private; no public demo at the moment.
               </span>
             ) : null}
           </Reveal>
 
-          <Reveal delay={0.2} className="mt-10 flex flex-wrap gap-2">
-            {project.stack.map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full border border-border px-3 py-1 font-mono text-xs text-text-muted"
-              >
-                {tech}
-              </span>
-            ))}
-          </Reveal>
         </div>
 
         {project.screenshot ? (
@@ -117,7 +111,7 @@ export default async function ProjectPage({
             <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-bg-elevated sm:aspect-[16/9]">
               <Image
                 src={project.screenshot}
-                alt={`${project.name} homepage`}
+                alt={`Screenshot of ${project.name}`}
                 fill
                 priority
                 sizes="(min-width: 768px) 1152px, 100vw"
@@ -131,37 +125,20 @@ export default async function ProjectPage({
       <div className="container-page py-16 md:py-24">
         <div className="grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-8">
           <div className="space-y-14 md:col-span-7">
-            {sections.map((s, i) => (
-              <Reveal key={s.key} delay={Math.min(i * 0.05, 0.2)}>
-                <div className="mb-3 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-text-faint">
-                  <span className="text-accent">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="h-px w-8 bg-border-strong" aria-hidden />
-                </div>
-                <h2 className="mb-3 text-2xl font-medium text-text">{s.label}</h2>
-                <p className="text-balance leading-relaxed text-text-muted">
-                  {project.caseStudy[s.key]}
-                </p>
-              </Reveal>
-            ))}
+            {sections.map((s, i) =>
+              project.caseStudy[s.key] ? (
+                <Reveal key={s.key} delay={Math.min(i * 0.04, 0.16)}>
+                  <h2 className="mb-3 text-2xl font-medium tracking-tight text-text">{s.label}</h2>
+                  <p className="text-pretty leading-relaxed text-text-muted sm:text-[17px]">
+                    {project.caseStudy[s.key]}
+                  </p>
+                </Reveal>
+              ) : null
+            )}
 
             <Reveal delay={0.2}>
-              <div className="mb-3 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-text-faint">
-                <span className="text-accent">05</span>
-                <span className="h-px w-8 bg-border-strong" aria-hidden />
-              </div>
-              <h2 className="mb-3 text-2xl font-medium text-text">Challenges</h2>
-              <p className="text-balance leading-relaxed text-text-muted">
-                {project.caseStudy.challenges}
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.25}>
-              <div className="mb-3 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-text-faint">
-                <span className="text-accent">06</span>
-                <span className="h-px w-8 bg-border-strong" aria-hidden />
-              </div>
-              <h2 className="mb-3 text-2xl font-medium text-text">Status</h2>
-              <div className="flex items-start gap-3 rounded-xl border border-border bg-surface p-5">
+              <h2 className="mb-3 text-2xl font-medium tracking-tight text-text">Current status</h2>
+              <div className="flex flex-col items-start gap-3 rounded-xl border border-border bg-surface p-5 sm:flex-row">
                 <StatusBadge status={project.status} />
                 <p className="text-sm leading-relaxed text-text-muted">
                   {project.caseStudy.statusNote}
@@ -174,7 +151,7 @@ export default async function ProjectPage({
             <Reveal delay={0.15} className="sticky top-28 space-y-8">
               <div>
                 <p className="mb-3 font-mono text-xs uppercase tracking-[0.15em] text-text-faint">
-                  Key Features
+                  What it does
                 </p>
                 <ul className="space-y-3">
                   {project.caseStudy.keyFeatures.map((f) => (
@@ -206,7 +183,28 @@ export default async function ProjectPage({
         </div>
       </div>
 
-      <nav className="border-t border-border">
+      <section className="border-t border-border">
+        <div className="container-page flex flex-col items-start justify-between gap-6 py-14 md:flex-row md:items-center md:py-16">
+          <div>
+            <h2 className="text-2xl font-medium tracking-tight text-text">
+              Need something like this for your business?
+            </h2>
+            <p className="mt-2 text-text-muted">
+              Tell me what you&apos;re working on and I&apos;ll get back to you.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button href={`mailto:${site.email}`} external icon={<ArrowUpRight size={15} />}>
+              Send an email
+            </Button>
+            <Button href={site.whatsapp} external variant="secondary">
+              WhatsApp
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <nav aria-label="More projects" className="border-t border-border">
         <div className="container-page grid grid-cols-1 divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0">
           <Link
             href={`/work/${prev.slug}`}
